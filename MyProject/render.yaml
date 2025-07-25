@@ -1,0 +1,36 @@
+services:
+  - type: web
+    name: contentbloom-umbraco
+    env: dotnet
+    buildCommand: dotnet publish --configuration Release --output ./publish
+    startCommand: dotnet ./publish/MyProject.dll
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
+      - key: ASPNETCORE_URLS
+        value: http://0.0.0.0:$PORT
+      - key: DATABASE_HOST
+        fromDatabase:
+          name: contentbloom-db
+          property: host
+      - key: DATABASE_NAME
+        fromDatabase:
+          name: contentbloom-db
+          property: database
+      - key: DATABASE_USER
+        fromDatabase:
+          name: contentbloom-db
+          property: user
+      - key: DATABASE_PASSWORD
+        fromDatabase:
+          name: contentbloom-db
+          property: password
+    disk:
+      name: umbraco-data
+      mountPath: /app/umbraco/Data
+      sizeGB: 1
+
+databases:
+  - name: contentbloom-db
+    databaseName: umbraco
+    user: umbraco_user
