@@ -73,5 +73,3 @@ A modern e-commerce website built with Umbraco CMS featuring a complete shopping
 Ahmed
 
 ---
-
-*This is a demonstration project built with Umbraco CMS*
