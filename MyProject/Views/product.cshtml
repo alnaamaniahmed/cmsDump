@@ -1,0 +1,247 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@{
+	Layout = "master.cshtml";
+
+	var productTitle = Model.Value<string>("productTitle") ?? Model.Name;
+	var price = Model.Value<decimal>("price");
+	var category = Model.Value<string>("category");
+	var brand = Model.Value<string>("brand");
+	var rating = Model.Value<decimal>("rating");
+	var region = Model.Value<string>("region");
+	var description = Model.Value<string>("description");
+
+	var iconClass = category?.ToLower() switch
+	{
+		"electronics" => "fas fa-laptop",
+		"clothing" => "fas fa-tshirt",
+		"books" => "fas fa-book",
+		"home" => "fas fa-home",
+		"sports" => "fas fa-futbol",
+		_ => "fas fa-box"
+	};
+
+	var gradientClass = category?.ToLower() switch
+	{
+		"electronics" => "linear-gradient(45deg, #e0e7ff, #c7d2fe)",
+		"clothing" => "linear-gradient(45deg, #fef3c7, #fde68a)",
+		"books" => "linear-gradient(45deg, #ddd6fe, #c7d2fe)",
+		"home" => "linear-gradient(45deg, #dcfce7, #bbf7d0)",
+		"sports" => "linear-gradient(45deg, #fed7e2, #fbb6ce)",
+		_ => "linear-gradient(45deg, #f3f4f6, #e5e7eb)"
+	};
+}
+
+<!-- Breadcrumb -->
+<section class="py-3" style="background: var(--bg-light);">
+	<div class="container">
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb mb-0">
+				<li class="breadcrumb-item"><a href="/">Home</a></li>
+				<li class="breadcrumb-item"><a href="/products">Products</a></li>
+				<li class="breadcrumb-item"><a href="/products?category=@category">@category</a></li>
+				<li class="breadcrumb-item active">@productTitle</li>
+			</ol>
+		</nav>
+	</div>
+</section>
+
+
+<!-- Product Detail -->
+<section class="py-5">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-6 mb-4">
+				<!-- Product Image -->
+				<div class="card">
+					<div class="card-body text-center p-5">
+						<div class="product-image-large d-flex align-items-center justify-content-center"
+							style="background: @gradientClass; height: 400px; border-radius: 12px;">
+							<i class="@iconClass text-primary" style="font-size: 8rem;"></i>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-6">
+				<!-- Product Info -->
+				<div class="product-info">
+					<div class="mb-3">
+						<span class="badge bg-primary">@category</span>
+						<span class="badge bg-secondary ms-2">@region</span>
+					</div>
+
+					<h1 class="fw-bold mb-3">@productTitle</h1>
+
+					<div class="mb-3">
+						<span class="text-muted">Brand: </span>
+						<span class="fw-semibold">@brand</span>
+					</div>
+
+					<!-- Rating -->
+					<div class="mb-4">
+						<div class="d-flex align-items-center">
+							<div class="rating me-3">
+								@for (int i = 1; i <= 5; i++)
+								{
+									if (i <= rating)
+									{
+										<i class="fas fa-star text-warning"></i>
+									}
+									else
+									{
+										<i class="far fa-star text-warning"></i>
+									}
+								}
+							</div>
+							<span class="fw-semibold">@rating.ToString("F1")</span>
+							<span class="text-muted ms-2">(Based on customer reviews)</span>
+						</div>
+					</div>
+
+					<!-- Price -->
+					<div class="mb-4">
+						<div class="price-section">
+							<span class="price display-5 fw-bold text-primary">$@price.ToString("F2")</span>
+							<small class="text-muted d-block">Price includes tax</small>
+						</div>
+					</div>
+
+					<!-- Description -->
+					@if (!string.IsNullOrEmpty(description))
+					{
+						<div class="mb-4">
+							<h5>Description</h5>
+							<div class="text-muted">
+								@Html.Raw(description)
+							</div>
+						</div>
+					}
+
+					<!-- Action Buttons -->
+					<div class="d-flex gap-3 mb-4">
+						<button class="btn btn-primary btn-lg flex-grow-1" onclick="addToCartFromProduct()">
+							<i class="fas fa-shopping-cart me-2"></i>Add to Cart
+						</button>
+						<button class="btn btn-outline-secondary btn-lg">
+							<i class="fas fa-heart"></i>
+						</button>
+						<button class="btn btn-outline-secondary btn-lg">
+							<i class="fas fa-share"></i>
+						</button>
+					</div>
+
+					<!-- Product Features -->
+					<div class="product-features">
+						<div class="row">
+							<div class="col-6 mb-3">
+								<div class="feature-item">
+									<i class="fas fa-truck text-primary me-2"></i>
+									<span>Free Shipping</span>
+								</div>
+							</div>
+							<div class="col-6 mb-3">
+								<div class="feature-item">
+									<i class="fas fa-undo text-primary me-2"></i>
+									<span>30-Day Returns</span>
+								</div>
+							</div>
+							<div class="col-6 mb-3">
+								<div class="feature-item">
+									<i class="fas fa-shield-alt text-primary me-2"></i>
+									<span>2-Year Warranty</span>
+								</div>
+							</div>
+							<div class="col-6 mb-3">
+								<div class="feature-item">
+									<i class="fas fa-headset text-primary me-2"></i>
+									<span>24/7 Support</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- Related Products -->
+<section class="py-5" style="background: var(--bg-light);">
+	<div class="container">
+		<h3 class="fw-bold mb-4">Related Products</h3>
+
+		@{
+			var relatedProducts = Umbraco.ContentAtRoot()
+			.SelectMany(x => x.DescendantsOrSelf("product"))
+			.Where(x => x.IsVisible() && x.Id != Model.Id && x.Value<string>("category") == category)
+			.Take(4)
+			.ToList();
+		}
+
+		@if (relatedProducts.Any())
+		{
+			<div class="row">
+				@foreach (var relatedProduct in relatedProducts)
+				{
+					var relatedTitle = relatedProduct.Value<string>("productTitle") ?? relatedProduct.Name;
+					var relatedPrice = relatedProduct.Value<decimal>("price");
+					var relatedBrand = relatedProduct.Value<string>("brand");
+					var relatedRating = relatedProduct.Value<decimal>("rating");
+
+					<div class="col-lg-3 col-md-6 mb-4">
+						<div class="card product-card">
+							<div class="product-image card-img-top d-flex align-items-center justify-content-center"
+								style="height: 200px; background: @gradientClass;">
+								<i class="@iconClass text-primary" style="font-size: 3rem;"></i>
+							</div>
+							<div class="card-body">
+								<h6 class="card-title">@relatedTitle</h6>
+								<p class="text-muted small">@relatedBrand</p>
+								<div class="d-flex justify-content-between align-items-center">
+									<span class="price fw-bold">$@relatedPrice.ToString("F2")</span>
+									<div class="rating">
+										@for (int i = 1; i <= 5; i++)
+										{
+											if (i <= relatedRating)
+											{
+												<i class="fas fa-star text-warning small"></i>
+											}
+											else
+											{
+												<i class="far fa-star text-warning small"></i>
+											}
+										}
+									</div>
+								</div>
+								<a href="@relatedProduct.Url()" class="btn btn-outline-primary w-100 mt-3">View Details</a>
+							</div>
+						</div>
+					</div>
+				}
+			</div>
+		}
+		else
+		{
+			<p class="text-muted">No related products found.</p>
+		}
+	</div>
+</section>
+
+<script>
+	function addToCartFromProduct() {
+		// Get data from page elements instead of server-side variables
+		const title = document.querySelector('h1').textContent.trim();
+		const priceText = document.querySelector('.price').textContent.replace('$', '');
+		const price = parseFloat(priceText);
+		
+		const productData = {
+			id: '@Model.Id',
+			title: title,
+			price: price,
+			category: '@category',
+			url: '@Model.Url()'
+		};
+
+		addToCart(productData);
+	}
+</script>

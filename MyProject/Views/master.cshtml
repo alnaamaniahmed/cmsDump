@@ -1,0 +1,680 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@{
+	Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>@(Model.Value("seoTitle", fallback: Fallback.ToDefaultValue, defaultValue: Model.Name)) - ContentBloom MVP
+	</title>
+	<meta name="description" content="@Model.Value("seoDescription")">
+
+	<!-- Bootstrap CSS -->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+	<!-- Font Awesome -->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+	<!-- Favicon -->
+	<link rel="icon" type="image/png" href="/media/1htbr1o/favicon.png">
+	<link rel="apple-touch-icon" href="/media/1htbr1o/favicon.png">
+
+	<style>
+		:root {
+			--primary-color: #2563eb;
+			--secondary-color: #64748b;
+			--accent-color: #f59e0b;
+			--text-dark: #1e293b;
+			--text-light: #64748b;
+			--border-color: #e2e8f0;
+			--bg-light: #f8fafc;
+		}
+
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		body {
+			font-family: 'Inter', sans-serif;
+			line-height: 1.6;
+			color: var(--text-dark);
+		}
+
+		/* Navigation */
+		.navbar {
+			background: white;
+			box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+			padding: 1rem 0;
+		}
+
+		.navbar-brand {
+			font-weight: 700;
+			font-size: 1.8rem;
+			color: var(--primary-color) !important;
+		}
+
+		.navbar-nav .nav-link {
+			color: var(--text-dark) !important;
+			font-weight: 500;
+			margin: 0 0.5rem;
+			transition: color 0.3s ease;
+		}
+
+		.navbar-nav .nav-link:hover {
+			color: var(--primary-color) !important;
+		}
+
+		/* Buttons */
+		.btn-primary {
+			background: var(--primary-color);
+			border: none;
+			padding: 0.75rem 2rem;
+			font-weight: 600;
+			border-radius: 8px;
+			transition: all 0.3s ease;
+		}
+
+		.btn-primary:hover {
+			background: #1d4ed8;
+			transform: translateY(-2px);
+		}
+
+		.btn-outline-primary {
+			color: var(--primary-color);
+			border: 2px solid var(--primary-color);
+			padding: 0.75rem 2rem;
+			font-weight: 600;
+			border-radius: 8px;
+			transition: all 0.3s ease;
+		}
+
+		.btn-outline-primary:hover {
+			background: var(--primary-color);
+			transform: translateY(-2px);
+		}
+
+		/* Cards */
+		.card {
+			border: none;
+			border-radius: 12px;
+			box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+			transition: all 0.3s ease;
+			overflow: hidden;
+		}
+
+		.card:hover {
+			transform: translateY(-8px);
+			box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+		}
+
+		/* Product specific styles */
+		.product-card {
+			height: 100%;
+		}
+
+		.product-image {
+			height: 200px;
+			object-fit: cover;
+			background: var(--bg-light);
+		}
+
+		.price {
+			font-size: 1.5rem;
+			font-weight: 700;
+			color: var(--primary-color);
+		}
+
+		.rating {
+			color: var(--accent-color);
+		}
+
+		/* Filters */
+		.filter-section {
+			background: white;
+			border-radius: 12px;
+			padding: 1.5rem;
+			box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+			margin-bottom: 2rem;
+		}
+
+		/* Footer */
+		.footer a {
+			color: #94a3b8;
+			text-decoration: none;
+			transition: color 0.3s ease;
+		}
+
+		.footer a:hover {
+			color: white;
+		}
+
+		/* Fix footer text visibility */
+		.footer .text-muted {
+			color: #94a3b8 !important;
+			/* Override Bootstrap's text-muted */
+		}
+
+		.footer p {
+			color: #94a3b8;
+			/* Ensure all footer paragraphs are visible */
+		}
+
+		/* Responsive */
+		@@media (max-width: 768px) {
+			.hero-section h1 {
+				font-size: 2.5rem !important;
+			}
+
+			.filter-section {
+				margin-bottom: 1rem;
+			}
+		}
+
+		/* Loading states */
+		.loading {
+			opacity: 0.6;
+			pointer-events: none;
+		}
+
+		/* Pagination fixes */
+		.pagination .page-link {
+			color: var(--primary-color);
+			border: 1px solid var(--border-color);
+			margin: 0 2px;
+			border-radius: 8px;
+			padding: 0.5rem 0.75rem;
+		}
+
+		.pagination .page-link:hover {
+			background: var(--primary-color);
+			color: white;
+			border-color: var(--primary-color);
+		}
+
+		.pagination .page-item.active .page-link {
+			background: var(--primary-color);
+			border-color: var(--primary-color);
+			color: white !important;
+			/* Force white text on active page */
+		}
+
+		.pagination .page-item.active .page-link:hover {
+			background: #1d4ed8;
+			/* Darker blue on hover */
+			border-color: #1d4ed8;
+			color: white !important;
+		}
+
+		/* Ensure disabled pagination items are properly styled */
+		.pagination .page-item.disabled .page-link {
+			color: #6c757d;
+			background-color: #fff;
+			border-color: #dee2e6;
+		}
+
+		/* Cart Badge */
+		.cart-badge {
+			position: absolute;
+			top: -8px;
+			right: -8px;
+			background: #dc3545;
+			color: white;
+			border-radius: 50%;
+			width: 20px;
+			height: 20px;
+			font-size: 12px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-weight: bold;
+		}
+
+		.cart-icon-container {
+			position: relative;
+			display: inline-block;
+		}
+
+		/* Cart Sidebar */
+		.cart-sidebar {
+			position: fixed;
+			top: 0;
+			right: -400px;
+			width: 400px;
+			height: 100vh;
+			background: white;
+			box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+			z-index: 1050;
+			transition: right 0.3s ease;
+			overflow-y: auto;
+		}
+
+		.cart-sidebar.open {
+			right: 0;
+		}
+
+		.cart-overlay {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: rgba(0, 0, 0, 0.5);
+			z-index: 1040;
+			display: none;
+		}
+
+		.cart-overlay.show {
+			display: block;
+		}
+
+		.cart-item {
+			border-bottom: 1px solid #e5e7eb;
+			padding: 1rem;
+		}
+
+		.cart-item:last-child {
+			border-bottom: none;
+		}
+
+		.cart-item-image {
+			width: 60px;
+			height: 60px;
+			background: linear-gradient(45deg, #f3f4f6, #e5e7eb);
+			border-radius: 8px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.quantity-controls {
+			display: flex;
+			align-items: center;
+			gap: 0.5rem;
+		}
+
+		.quantity-btn {
+			background: #f3f4f6;
+			border: none;
+			width: 30px;
+			height: 30px;
+			border-radius: 4px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			cursor: pointer;
+		}
+
+		.quantity-btn:hover {
+			background: #e5e7eb;
+		}
+
+		.quantity-input {
+			width: 50px;
+			text-align: center;
+			border: 1px solid #d1d5db;
+			border-radius: 4px;
+			padding: 0.25rem;
+		}
+
+		@@media (max-width: 768px) {
+			.cart-sidebar {
+				width: 100%;
+				right: -100%;
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<!-- Navigation -->
+	<nav class="navbar navbar-expand-lg fixed-top">
+		<div class="container">
+			<a class="navbar-brand" href="/">ContentBloom</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav ms-auto">
+					<li class="nav-item">
+						<a class="nav-link" href="/">Home</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="/products">Products</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#about">About</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#contact">Contact</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link cart-icon-container" href="#" onclick="openCart(); return false;">
+							<i class="fas fa-shopping-cart"></i>
+							<span class="cart-badge" id="cartBadge" style="display: none;">0</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	</nav>
+
+	<!-- Cart Sidebar and Overlay -->
+	<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+	<div class="cart-sidebar" id="cartSidebar">
+		<div class="p-4 border-bottom">
+			<div class="d-flex justify-content-between align-items-center">
+				<h5 class="mb-0">Shopping Cart</h5>
+				<button class="btn-close" onclick="closeCart()"></button>
+			</div>
+		</div>
+
+		<div id="cartItems" class="flex-grow-1">
+			<!-- Cart items will be inserted here -->
+		</div>
+
+		<div class="p-4 border-top bg-light">
+			<div class="d-flex justify-content-between align-items-center mb-3">
+				<strong>Total: <span id="cartTotal">$0.00</span></strong>
+			</div>
+			<button class="btn btn-primary w-100 mb-2" onclick="proceedToCheckout()">
+				Proceed to Checkout
+			</button>
+			<button class="btn btn-outline-secondary w-100" onclick="clearCart()">
+				Clear Cart
+			</button>
+		</div>
+	</div>
+
+	<!-- Main Content -->
+	<main style="padding-top: 80px;">
+		@RenderBody()
+	</main>
+
+	<!-- Footer -->
+	<footer class="footer">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-4 col-md-6 mb-4">
+					<h5>ContentBloom</h5>
+					<p class="text-muted">Building amazing digital experiences with Umbraco CMS. Your trusted partner
+						for content management solutions.</p>
+				</div>
+				<div class="col-lg-2 col-md-6 mb-4">
+					<h5>Quick Links</h5>
+					<ul class="list-unstyled">
+						<li><a href="/">Home</a></li>
+						<li><a href="/products">Products</a></li>
+						<li><a href="#about">About</a></li>
+						<li><a href="#contact">Contact</a></li>
+					</ul>
+				</div>
+				<div class="col-lg-2 col-md-6 mb-4">
+					<h5>Categories</h5>
+					<ul class="list-unstyled">
+						<li><a href="/products?category=Electronics">Electronics</a></li>
+						<li><a href="/products?category=Clothing">Clothing</a></li>
+						<li><a href="/products?category=Books">Books</a></li>
+						<li><a href="/products?category=Home">Home</a></li>
+					</ul>
+				</div>
+				<div class="col-lg-4 col-md-6 mb-4">
+					<h5>Connect With Us</h5>
+					<div class="d-flex gap-3 mb-3">
+						<a href="#" class="fs-4"><i class="fab fa-facebook"></i></a>
+						<a href="#" class="fs-4"><i class="fab fa-twitter"></i></a>
+						<a href="#" class="fs-4"><i class="fab fa-linkedin"></i></a>
+						<a href="#" class="fs-4"><i class="fab fa-instagram"></i></a>
+					</div>
+					<p class="text-muted">Stay updated with our latest products and offers.</p>
+				</div>
+			</div>
+			<hr class="my-4" style="border-color: #374151;">
+			<div class="row">
+				<div class="col-md-6">
+					<p class="text-muted mb-0">&copy; 2025 ContentBloom MVP. All rights reserved.</p>
+				</div>
+				<div class="col-md-6 text-md-end">
+					<p class="text-muted mb-0">Built with Umbraco CMS</p>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+	<!-- Bootstrap JS -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+	<!-- Cart JavaScript -->
+	<script>
+		class ShoppingCart {
+			constructor() {
+				this.items = this.loadCart();
+				this.updateCartUI();
+			}
+
+			// Save cart to cookies
+			saveCart() {
+				const cartData = JSON.stringify(this.items);
+				document.cookie = `cart=${encodeURIComponent(cartData)}; path=/; max-age=${30 * 24 * 60 * 60}`; // 30 days
+			}
+
+			// Load cart from cookies
+			loadCart() {
+				const cookies = document.cookie.split(';');
+				for (let cookie of cookies) {
+					const [name, value] = cookie.trim().split('=');
+					if (name === 'cart') {
+						try {
+							return JSON.parse(decodeURIComponent(value));
+						} catch (e) {
+							return [];
+						}
+					}
+				}
+				return [];
+			}
+
+			// Add item to cart
+			addItem(product) {
+				const existingItem = this.items.find(item => item.id === product.id);
+
+				if (existingItem) {
+					existingItem.quantity += 1;
+				} else {
+					this.items.push({
+						id: product.id,
+						title: product.title,
+						price: product.price,
+						category: product.category,
+						url: product.url,
+						quantity: 1
+					});
+				}
+
+				this.saveCart();
+				this.updateCartUI();
+				this.showAddedNotification(product.title);
+			}
+
+			// Remove item from cart
+			removeItem(productId) {
+				this.items = this.items.filter(item => item.id !== productId);
+				this.saveCart();
+				this.updateCartUI();
+			}
+
+			// Update item quantity
+			updateQuantity(productId, quantity) {
+				const item = this.items.find(item => item.id === productId);
+				if (item) {
+					if (quantity <= 0) {
+						this.removeItem(productId);
+					} else {
+						item.quantity = quantity;
+						this.saveCart();
+						this.updateCartUI();
+					}
+				}
+			}
+
+			// Clear entire cart
+			clear() {
+				this.items = [];
+				this.saveCart();
+				this.updateCartUI();
+			}
+
+			// Get cart total
+			getTotal() {
+				return this.items.reduce((total, item) => total + (item.price * item.quantity), 0);
+			}
+
+			// Get cart item count
+			getItemCount() {
+				return this.items.reduce((count, item) => count + item.quantity, 0);
+			}
+
+			// Update cart UI
+			updateCartUI() {
+				this.updateCartBadge();
+				this.updateCartSidebar();
+			}
+
+			// Update cart badge
+			updateCartBadge() {
+				const badge = document.getElementById('cartBadge');
+				const count = this.getItemCount();
+
+				if (count > 0) {
+					badge.textContent = count;
+					badge.style.display = 'flex';
+				} else {
+					badge.style.display = 'none';
+				}
+			}
+
+			// Update cart sidebar
+			updateCartSidebar() {
+				const cartItemsContainer = document.getElementById('cartItems');
+				const cartTotal = document.getElementById('cartTotal');
+
+				if (this.items.length === 0) {
+					cartItemsContainer.innerHTML = `
+	                <div class="p-4 text-center">
+	                    <i class="fas fa-shopping-cart text-muted" style="font-size: 3rem;"></i>
+	                    <p class="text-muted mt-3">Your cart is empty</p>
+	                    <a href="/products" class="btn btn-primary">Start Shopping</a>
+	                </div>
+	            `;
+				} else {
+					cartItemsContainer.innerHTML = this.items.map(item => `
+	                <div class="cart-item">
+	                    <div class="d-flex gap-3">
+	                        <div class="cart-item-image">
+	                            <i class="fas fa-${this.getCategoryIcon(item.category)} text-primary"></i>
+	                        </div>
+	                        <div class="flex-grow-1">
+	                            <h6 class="mb-1">${item.title}</h6>
+	                            <p class="text-muted small mb-2">${item.category}</p>
+	                            <div class="d-flex justify-content-between align-items-center">
+	                                <div class="quantity-controls">
+	                                    <button class="quantity-btn" onclick="cart.updateQuantity('${item.id}', ${item.quantity - 1})">
+	                                        <i class="fas fa-minus"></i>
+	                                    </button>
+	                                    <input type="number" class="quantity-input" value="${item.quantity}" 
+	                                           onchange="cart.updateQuantity('${item.id}', parseInt(this.value))" min="1">
+	                                    <button class="quantity-btn" onclick="cart.updateQuantity('${item.id}', ${item.quantity + 1})">
+	                                        <i class="fas fa-plus"></i>
+	                                    </button>
+	                                </div>
+	                                <div class="text-end">
+	                                    <div class="fw-bold">$${(item.price * item.quantity).toFixed(2)}</div>
+	                                    <button class="btn btn-sm text-danger" onclick="cart.removeItem('${item.id}')">
+	                                        <i class="fas fa-trash"></i>
+	                                    </button>
+	                                </div>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+	            `).join('');
+				}
+
+				cartTotal.textContent = `$${this.getTotal().toFixed(2)}`;
+			}
+
+			// Get category icon
+			getCategoryIcon(category) {
+				const icons = {
+					'electronics': 'laptop',
+					'clothing': 'tshirt',
+					'books': 'book',
+					'home': 'home',
+					'toys': 'gamepad',
+					'sports': 'futbol'
+				};
+				return icons[category?.toLowerCase()] || 'box';
+			}
+
+			// Show added notification
+			showAddedNotification(productTitle) {
+				// Simple notification
+				const notification = document.createElement('div');
+				notification.innerHTML = `
+	            <div class="alert alert-success alert-dismissible fade show position-fixed" 
+	                 style="top: 100px; right: 20px; z-index: 9999; min-width: 300px;">
+	                <strong>Added to cart!</strong> ${productTitle}
+	                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+	            </div>
+	        `;
+				document.body.appendChild(notification);
+
+				// Auto remove after 3 seconds
+				setTimeout(() => {
+					notification.remove();
+				}, 3000);
+			}
+		}
+
+		// Initialize cart
+		const cart = new ShoppingCart();
+
+		// Cart functions
+		function openCart() {
+			document.getElementById('cartSidebar').classList.add('open');
+			document.getElementById('cartOverlay').classList.add('show');
+		}
+
+		function closeCart() {
+			document.getElementById('cartSidebar').classList.remove('open');
+			document.getElementById('cartOverlay').classList.remove('show');
+		}
+
+		function clearCart() {
+			if (confirm('Are you sure you want to clear your cart?')) {
+				cart.clear();
+			}
+		}
+
+		function proceedToCheckout() {
+			if (cart.items.length === 0) {
+				alert('Your cart is empty!');
+				return;
+			}
+
+			// For now, just show an alert. You can implement actual checkout later
+			alert(`Proceeding to checkout with ${cart.getItemCount()} items totaling $${cart.getTotal().toFixed(2)}`);
+		}
+
+		// Add to cart function for product pages
+		function addToCart(productData) {
+			cart.addItem(productData);
+		}
+	</script>
+</body>
+
+</html>

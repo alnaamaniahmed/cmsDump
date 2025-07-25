@@ -1,0 +1,310 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@{
+    Layout = "master.cshtml";
+    var heroTitle = Model.Value<string>("heroTitle") ?? "Transform Your Digital Experience";
+    var heroSubtitle = Model.Value<string>("heroSubtitle") ?? "We help businesses create exceptional digital experiences with powerful content management solutions. Discover our innovative approach to web development and digital strategy.";
+}
+
+<!-- Hero Section -->
+<section class="hero-section" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 6rem 0; color: white;">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h1 class="display-4 fw-bold mb-4">@heroTitle</h1>
+                <p class="lead mb-4">@heroSubtitle</p>
+                <div class="d-flex gap-3 flex-wrap">
+                    <a href="/products" class="btn btn-light btn-lg">Explore Products</a>
+                    <a href="#services" class="btn btn-outline-light btn-lg">Our Services</a>
+                </div>
+            </div>
+            <div class="col-lg-6 text-center">
+                <div class="hero-image-placeholder" style="background: rgba(255,255,255,0.1); border-radius: 20px; padding: 3rem; margin-top: 2rem;">
+                    <i class="fas fa-laptop-code" style="font-size: 8rem; opacity: 0.7;"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Services Section -->
+<section id="services" class="py-5" style="background: var(--bg-light);">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold">What We Do</h2>
+            <p class="lead text-muted">Comprehensive digital solutions tailored to your business needs</p>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card text-center h-100">
+                    <div class="card-body p-4">
+                        <div class="mb-3">
+                            <i class="fas fa-code text-primary" style="font-size: 3rem;"></i>
+                        </div>
+                        <h5 class="card-title">Web Development</h5>
+                        <p class="card-text">Custom web applications built with modern technologies and best practices for optimal performance.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card text-center h-100">
+                    <div class="card-body p-4">
+                        <div class="mb-3">
+                            <i class="fas fa-palette text-primary" style="font-size: 3rem;"></i>
+                        </div>
+                        <h5 class="card-title">UX/UI Design</h5>
+                        <p class="card-text">Beautiful, intuitive designs that enhance user experience and drive engagement across all devices.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card text-center h-100">
+                    <div class="card-body p-4">
+                        <div class="mb-3">
+                            <i class="fas fa-chart-line text-primary" style="font-size: 3rem;"></i>
+                        </div>
+                        <h5 class="card-title">Digital Strategy</h5>
+                        <p class="card-text">Data-driven strategies to maximize your digital presence and achieve measurable business results.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card text-center h-100">
+                    <div class="card-body p-4">
+                        <div class="mb-3">
+                            <i class="fas fa-cogs text-primary" style="font-size: 3rem;"></i>
+                        </div>
+                        <h5 class="card-title">CMS Solutions</h5>
+                        <p class="card-text">Powerful content management systems that give you full control over your digital content.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card text-center h-100">
+                    <div class="card-body p-4">
+                        <div class="mb-3">
+                            <i class="fas fa-mobile-alt text-primary" style="font-size: 3rem;"></i>
+                        </div>
+                        <h5 class="card-title">Mobile Apps</h5>
+                        <p class="card-text">Native and cross-platform mobile applications that deliver exceptional user experiences.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card text-center h-100">
+                    <div class="card-body p-4">
+                        <div class="mb-3">
+                            <i class="fas fa-cloud text-primary" style="font-size: 3rem;"></i>
+                        </div>
+                        <h5 class="card-title">Cloud Solutions</h5>
+                        <p class="card-text">Scalable cloud infrastructure and services to support your growing business needs.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Featured Products Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold">Featured Products</h2>
+            <p class="lead text-muted">Discover our most popular and innovative solutions</p>
+        </div>
+        
+        @{
+            // Get featured products from Umbraco content
+            var featuredProducts = Umbraco.ContentAtRoot()
+                .SelectMany(x => x.DescendantsOrSelf())
+                .Where(x => x.IsVisible() && x.ContentType.Alias == "product")
+                .OrderByDescending(x => x.Value<decimal>("rating"))
+                .Take(3)
+                .ToList();
+        }
+        
+        @if (featuredProducts.Any())
+        {
+            <div class="row">
+                @foreach (var product in featuredProducts)
+                {
+                    var productTitle = product.Value<string>("productTitle") ?? product.Name;
+                    var price = product.Value<decimal>("price");
+                    var category = product.Value<string>("category");
+                    var rating = product.Value<decimal>("rating");
+                    
+                    var iconClass = category?.ToLower() switch
+                    {
+                        "electronics" => "fas fa-laptop",
+                        "clothing" => "fas fa-tshirt",
+                        "books" => "fas fa-book",
+                        "home" => "fas fa-home",
+                        "toys" => "fas fa-gamepad",
+                        _ => "fas fa-box"
+                    };
+                    
+                    var gradientClass = category?.ToLower() switch
+                    {
+                        "electronics" => "linear-gradient(45deg, #f3f4f6, #e5e7eb)",
+                        "clothing" => "linear-gradient(45deg, #fef3c7, #fde68a)",
+                        "books" => "linear-gradient(45deg, #ddd6fe, #c7d2fe)",
+                        "home" => "linear-gradient(45deg, #dcfce7, #bbf7d0)",
+                        "toys" => "linear-gradient(45deg, #fed7e2, #fbb6ce)",
+                        _ => "linear-gradient(45deg, #f3f4f6, #e5e7eb)"
+                    };
+                    
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card product-card">
+                            <div class="product-image card-img-top d-flex align-items-center justify-content-center" style="height: 200px; background: @gradientClass;">
+                                <i class="@iconClass text-primary" style="font-size: 4rem;"></i>
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">@productTitle</h5>
+                                <p class="text-muted">@category</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="price">$@price.ToString("F2")</span>
+                                    <div class="rating">
+                                        @{
+                                            var ratingValue = (double)rating;
+                                        }
+                                        @for (int i = 1; i <= 5; i++)
+                                        {
+                                            if (i <= ratingValue)
+                                            {
+                                                <i class="fas fa-star"></i>
+                                            }
+                                            else if (i - 0.5 <= ratingValue)
+                                            {
+                                                <i class="fas fa-star-half-alt"></i>
+                                            }
+                                            else
+                                            {
+                                                <i class="far fa-star"></i>
+                                            }
+                                        }
+                                        <span class="ms-1">@rating.ToString("F1")</span>
+                                    </div>
+                                </div>
+                                <div class="d-flex gap-2 mt-3">
+                                    <a href="@product.Url()" class="btn btn-outline-primary flex-grow-1">View Details</a>
+                                    <button class="btn btn-primary" data-product-id="@product.Id" data-product-title="@productTitle" data-product-price="@price" data-product-category="@category" data-product-url="@product.Url()" onclick="addToCartFromHomeData(this)">
+                                        <i class="fas fa-cart-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <!-- Fallback if no products found -->
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card product-card">
+                        <div class="product-image card-img-top d-flex align-items-center justify-content-center" style="height: 200px; background: linear-gradient(45deg, #f3f4f6, #e5e7eb);">
+                            <i class="fas fa-laptop text-primary" style="font-size: 4rem;"></i>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Sample Product</h5>
+                            <p class="text-muted">Electronics</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="price">$999</span>
+                                <div class="rating">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <span class="ms-1">5.0</span>
+                                </div>
+                            </div>
+                            <a href="/products" class="btn btn-primary w-100 mt-3">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        
+        <div class="text-center mt-4">
+            <a href="/products" class="btn btn-outline-primary btn-lg">View All Products</a>
+        </div>
+    </div>
+</section>
+
+<!-- Stats Section -->
+<section class="py-5" style="background: var(--primary-color); color: white;">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="stat-item">
+                    <h3 class="display-4 fw-bold">500+</h3>
+                    <p class="lead">Projects Completed</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="stat-item">
+                    <h3 class="display-4 fw-bold">50+</h3>
+                    <p class="lead">Happy Clients</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="stat-item">
+                    <h3 class="display-4 fw-bold">5+</h3>
+                    <p class="lead">Years Experience</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="stat-item">
+                    <h3 class="display-4 fw-bold">24/7</h3>
+                    <p class="lead">Support Available</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h2 class="fw-bold mb-4">Ready to Get Started?</h2>
+                <p class="lead mb-4">Let's work together to create something amazing. Contact us today to discuss your project and see how we can help bring your vision to life.</p>
+                <div class="d-flex gap-3 justify-content-center flex-wrap">
+                    <a href="/products" class="btn btn-primary btn-lg">Explore Products</a>
+                    <a href="#contact" class="btn btn-outline-primary btn-lg">Get In Touch</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    function addToCartFromHomeData(button) {
+        const productData = {
+            id: button.getAttribute('data-product-id'),
+            title: button.getAttribute('data-product-title'),
+            price: parseFloat(button.getAttribute('data-product-price')),
+            category: button.getAttribute('data-product-category'),
+            url: button.getAttribute('data-product-url')
+        };
+        
+        addToCart(productData);
+    }
+
+    // Keep the old function for compatibility if needed
+    function addToCartFromHome(id, title, price, category, url) {
+        const productData = {
+            id: id,
+            title: title,
+            price: price,
+            category: category,
+            url: url
+        };
+        
+        addToCart(productData);
+    }
+</script>
