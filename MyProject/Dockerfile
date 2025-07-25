@@ -17,8 +17,14 @@ ENV ASPNETCORE_URLS=http://+:10000
 # Copy published app
 COPY --from=build /app/publish .
 
-# Create Umbraco directories
-RUN mkdir -p /app/umbraco/Data
-RUN chmod 755 /app/umbraco/Data
+# Create ALL required Umbraco directories with proper permissions
+RUN mkdir -p /app/wwwroot/media \
+    && mkdir -p /app/wwwroot/umbraco \
+    && mkdir -p /app/umbraco/Data \
+    && mkdir -p /app/umbraco/Logs \
+    && mkdir -p /app/App_Data \
+    && chmod -R 755 /app/wwwroot \
+    && chmod -R 755 /app/umbraco \
+    && chmod -R 755 /app/App_Data
 
 ENTRYPOINT ["dotnet", "MyProject.dll"]
