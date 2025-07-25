@@ -20,43 +20,43 @@
 		_ => "fas fa-box"
 	};
 
-	var gradientClass = category?.ToLower() switch
+	var gradientBg = category?.ToLower() switch
 	{
-		"electronics" => "linear-gradient(45deg, #e0e7ff, #c7d2fe)",
-		"clothing" => "linear-gradient(45deg, #fef3c7, #fde68a)",
-		"books" => "linear-gradient(45deg, #ddd6fe, #c7d2fe)",
-		"home" => "linear-gradient(45deg, #dcfce7, #bbf7d0)",
-		"sports" => "linear-gradient(45deg, #fed7e2, #fbb6ce)",
-		_ => "linear-gradient(45deg, #f3f4f6, #e5e7eb)"
+		"electronics" => "background: radial-gradient(circle at 30% 40%, rgba(120, 119, 198, 0.8) 0%, rgba(255, 119, 198, 0.6) 50%, transparent 100%);",
+		"clothing" => "background: radial-gradient(circle at 70% 30%, rgba(255, 119, 198, 0.8) 0%, rgba(120, 200, 255, 0.6) 50%, transparent 100%);",
+		"books" => "background: radial-gradient(circle at 50% 60%, rgba(120, 200, 255, 0.8) 0%, rgba(120, 255, 200, 0.6) 50%, transparent 100%);",
+		"home" => "background: radial-gradient(circle at 20% 80%, rgba(120, 255, 200, 0.8) 0%, rgba(255, 200, 120, 0.6) 50%, transparent 100%);",
+		"sports" => "background: radial-gradient(circle at 80% 20%, rgba(255, 200, 120, 0.8) 0%, rgba(255, 119, 198, 0.6) 50%, transparent 100%);",
+		_ => "background: radial-gradient(circle at 50% 50%, rgba(120, 119, 198, 0.8) 0%, rgba(255, 119, 198, 0.6) 50%, transparent 100%);"
 	};
 }
 
 <!-- Breadcrumb -->
-<section class="py-3" style="background: var(--bg-light);">
+<section class="py-3" style="background: var(--bg-darker);">
 	<div class="container">
 		<nav aria-label="breadcrumb">
 			<ol class="breadcrumb mb-0">
-				<li class="breadcrumb-item"><a href="/">Home</a></li>
-				<li class="breadcrumb-item"><a href="/products">Products</a></li>
-				<li class="breadcrumb-item"><a href="/products?category=@category">@category</a></li>
-				<li class="breadcrumb-item active">@productTitle</li>
+				<li class="breadcrumb-item"><a href="/" style="color: var(--text-gray);">Home</a></li>
+				<li class="breadcrumb-item"><a href="/products" style="color: var(--text-gray);">Products</a></li>
+				<li class="breadcrumb-item"><a href="/products?category=@category" style="color: var(--text-gray);">@category</a></li>
+				<li class="breadcrumb-item active" style="color: var(--text-white);">@productTitle</li>
 			</ol>
 		</nav>
 	</div>
 </section>
 
-
 <!-- Product Detail -->
-<section class="py-5">
+<section class="py-5" style="background: #f8fafc;">
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-6 mb-4">
 				<!-- Product Image -->
-				<div class="card">
+				<div class="card" style="background: white; border: 1px solid #e5e7eb; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
 					<div class="card-body text-center p-5">
-						<div class="product-image-large d-flex align-items-center justify-content-center"
-							style="background: @gradientClass; height: 400px; border-radius: 12px;">
-							<i class="@iconClass text-primary" style="font-size: 8rem;"></i>
+						<div class="product-image-large d-flex align-items-center justify-content-center position-relative"
+							style="@gradientBg background-color: #f3f4f6; height: 400px; border-radius: 12px;">
+							<i class="@iconClass" style="font-size: 8rem; color: white; opacity: 0.9; z-index: 2;"></i>
+							<div class="position-absolute w-100 h-100" style="background: rgba(0,0,0,0.1); opacity: 0.3; z-index: 1; border-radius: 12px;"></div>
 						</div>
 					</div>
 				</div>
@@ -66,15 +66,15 @@
 				<!-- Product Info -->
 				<div class="product-info">
 					<div class="mb-3">
-						<span class="badge bg-primary">@category</span>
-						<span class="badge bg-secondary ms-2">@region</span>
+						<span class="badge" style="background: var(--primary-button); color: white;">@category</span>
+						<span class="badge ms-2" style="background: #6b7280; color: white;">@region</span>
 					</div>
 
-					<h1 class="fw-bold mb-3">@productTitle</h1>
+					<h1 class="fw-bold mb-3" style="color: #1f2937;">@productTitle</h1>
 
 					<div class="mb-3">
-						<span class="text-muted">Brand: </span>
-						<span class="fw-semibold">@brand</span>
+						<span style="color: #6b7280;">Brand: </span>
+						<span class="fw-semibold" style="color: #1f2937;">@brand</span>
 					</div>
 
 					<!-- Rating -->
@@ -85,24 +85,24 @@
 								{
 									if (i <= rating)
 									{
-										<i class="fas fa-star text-warning"></i>
+										<i class="fas fa-star" style="color: #ffc107;"></i>
 									}
 									else
 									{
-										<i class="far fa-star text-warning"></i>
+										<i class="far fa-star" style="color: #ffc107;"></i>
 									}
 								}
 							</div>
-							<span class="fw-semibold">@rating.ToString("F1")</span>
-							<span class="text-muted ms-2">(Based on customer reviews)</span>
+							<span class="fw-semibold" style="color: #1f2937;">@rating.ToString("F1")</span>
+							<span class="ms-2" style="color: #6b7280;">(Based on customer reviews)</span>
 						</div>
 					</div>
 
 					<!-- Price -->
 					<div class="mb-4">
 						<div class="price-section">
-							<span class="price display-5 fw-bold text-primary">$@price.ToString("F2")</span>
-							<small class="text-muted d-block">Price includes tax</small>
+							<span class="price display-5 fw-bold" style="color: var(--primary-button);">$@price.ToString("F2")</span>
+							<small class="d-block" style="color: #6b7280;">Price includes tax</small>
 						</div>
 					</div>
 
@@ -110,8 +110,8 @@
 					@if (!string.IsNullOrEmpty(description))
 					{
 						<div class="mb-4">
-							<h5>Description</h5>
-							<div class="text-muted">
+							<h5 style="color: #1f2937;">Description</h5>
+							<div style="color: #6b7280;">
 								@Html.Raw(description)
 							</div>
 						</div>
@@ -122,10 +122,10 @@
 						<button class="btn btn-primary btn-lg flex-grow-1" onclick="addToCartFromProduct()">
 							<i class="fas fa-shopping-cart me-2"></i>Add to Cart
 						</button>
-						<button class="btn btn-outline-secondary btn-lg">
+						<button class="btn btn-lg" style="border: 2px solid #374151; color: #374151; background: transparent; border-radius: 30px; padding: 1rem 2rem; font-size: 1rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; transition: all 0.3s ease;" onmouseover="this.style.background='#374151'; this.style.color='white';" onmouseout="this.style.background='transparent'; this.style.color='#374151';">
 							<i class="fas fa-heart"></i>
 						</button>
-						<button class="btn btn-outline-secondary btn-lg">
+						<button class="btn btn-lg" style="border: 2px solid #374151; color: #374151; background: transparent; border-radius: 30px; padding: 1rem 2rem; font-size: 1rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; transition: all 0.3s ease;" onmouseover="this.style.background='#374151'; this.style.color='white';" onmouseout="this.style.background='transparent'; this.style.color='#374151';">
 							<i class="fas fa-share"></i>
 						</button>
 					</div>
@@ -135,26 +135,26 @@
 						<div class="row">
 							<div class="col-6 mb-3">
 								<div class="feature-item">
-									<i class="fas fa-truck text-primary me-2"></i>
-									<span>Free Shipping</span>
+									<i class="fas fa-truck me-2" style="color: var(--primary-button);"></i>
+									<span style="color: #1f2937;">Free Shipping</span>
 								</div>
 							</div>
 							<div class="col-6 mb-3">
 								<div class="feature-item">
-									<i class="fas fa-undo text-primary me-2"></i>
-									<span>30-Day Returns</span>
+									<i class="fas fa-undo me-2" style="color: var(--primary-button);"></i>
+									<span style="color: #1f2937;">30-Day Returns</span>
 								</div>
 							</div>
 							<div class="col-6 mb-3">
 								<div class="feature-item">
-									<i class="fas fa-shield-alt text-primary me-2"></i>
-									<span>2-Year Warranty</span>
+									<i class="fas fa-shield-alt me-2" style="color: var(--primary-button);"></i>
+									<span style="color: #1f2937;">2-Year Warranty</span>
 								</div>
 							</div>
 							<div class="col-6 mb-3">
 								<div class="feature-item">
-									<i class="fas fa-headset text-primary me-2"></i>
-									<span>24/7 Support</span>
+									<i class="fas fa-headset me-2" style="color: var(--primary-button);"></i>
+									<span style="color: #1f2937;">24/7 Support</span>
 								</div>
 							</div>
 						</div>
@@ -166,9 +166,9 @@
 </section>
 
 <!-- Related Products -->
-<section class="py-5" style="background: var(--bg-light);">
+<section class="py-5" style="background: var(--bg-darker);">
 	<div class="container">
-		<h3 class="fw-bold mb-4">Related Products</h3>
+		<h3 class="fw-bold mb-4" style="color: var(--text-white);">Related Products</h3>
 
 		@{
 			var relatedProducts = Umbraco.ContentAtRoot()
@@ -190,30 +190,31 @@
 
 					<div class="col-lg-3 col-md-6 mb-4">
 						<div class="card product-card">
-							<div class="product-image card-img-top d-flex align-items-center justify-content-center"
-								style="height: 200px; background: @gradientClass;">
-								<i class="@iconClass text-primary" style="font-size: 3rem;"></i>
+							<div class="product-image card-img-top d-flex align-items-center justify-content-center position-relative"
+								style="height: 200px; @gradientBg background-color: var(--bg-darker);">
+								<i class="@iconClass" style="font-size: 3rem; color: white; opacity: 0.9; z-index: 2;"></i>
+								<div class="position-absolute w-100 h-100" style="background: var(--bg-darker); opacity: 0.3; z-index: 1;"></div>
 							</div>
 							<div class="card-body">
-								<h6 class="card-title">@relatedTitle</h6>
-								<p class="text-muted small">@relatedBrand</p>
+								<h6 class="card-title" style="color: var(--text-white);">@relatedTitle</h6>
+								<p class="small" style="color: var(--text-gray);">@relatedBrand</p>
 								<div class="d-flex justify-content-between align-items-center">
-									<span class="price fw-bold">$@relatedPrice.ToString("F2")</span>
+									<span class="price fw-bold" style="color: var(--primary-button);">$@relatedPrice.ToString("F2")</span>
 									<div class="rating">
 										@for (int i = 1; i <= 5; i++)
 										{
 											if (i <= relatedRating)
 											{
-												<i class="fas fa-star text-warning small"></i>
+												<i class="fas fa-star small" style="color: #ffc107;"></i>
 											}
 											else
 											{
-												<i class="far fa-star text-warning small"></i>
+												<i class="far fa-star small" style="color: #ffc107;"></i>
 											}
 										}
 									</div>
 								</div>
-								<a href="@relatedProduct.Url()" class="btn btn-outline-primary w-100 mt-3">View Details</a>
+								<a href="@relatedProduct.Url()" class="btn btn-outline-light w-100 mt-3">View Details</a>
 							</div>
 						</div>
 					</div>
@@ -222,7 +223,7 @@
 		}
 		else
 		{
-			<p class="text-muted">No related products found.</p>
+			<p style="color: var(--text-gray);">No related products found.</p>
 		}
 	</div>
 </section>

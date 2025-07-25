@@ -88,16 +88,16 @@
 }
 
 <!-- Page Header -->
-<section class="py-5" style="background: var(--bg-light);">
+<section class="py-5" style="background: var(--bg-darker);">
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <h1 class="fw-bold mb-3">@(Model.Value("pageTitle") ?? "Our Products")</h1>
-                <p class="lead text-muted">@(Model.Value("pageDescription") ?? "Discover our amazing collection of products across different categories")</p>
+                <h1 class="fw-bold mb-3" style="color: var(--text-white);">@(Model.Value("pageTitle") ?? "Our Products")</h1>
+                <p class="lead" style="color: var(--text-gray);">@(Model.Value("pageDescription") ?? "Discover our amazing collection of products across different categories")</p>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="/">Home</a></li>
-                        <li class="breadcrumb-item active">Products</li>
+                        <li class="breadcrumb-item"><a href="/" style="color: var(--text-gray);">Home</a></li>
+                        <li class="breadcrumb-item active" style="color: var(--text-white);">Products</li>
                     </ol>
                 </nav>
             </div>
@@ -106,21 +106,21 @@
 </section>
 
 <!-- Products Section -->
-<section class="py-5">
+<section class="py-5" style="background: #f8fafc;">
     <div class="container">
         <div class="row">
             <!-- Filters Sidebar -->
             <div class="col-lg-3 col-md-4 mb-4">
-                <div class="filter-section">
-                    <h5 class="fw-bold mb-3">
-                        <i class="fas fa-filter me-2"></i>Filters
+                <div class="filter-section" style="background: white; border: 1px solid #e5e7eb; box-shadow: 0 1px 3px rgba(0,0,0,0.1); border-radius: 16px; padding: 2rem;">
+                    <h5 class="fw-bold mb-3" style="color: #1f2937;">
+                        <i class="fas fa-filter me-2" style="color: var(--primary-button);"></i>Filters
                     </h5>
                     
                     <form method="get" id="filterForm">
                         <!-- Category Filter -->
                         <div class="mb-4">
-                            <label class="form-label fw-semibold">Category</label>
-                            <select name="category" class="form-select filter-control">
+                            <label class="form-label fw-semibold" style="color: #1f2937;">Category</label>
+                            <select name="category" class="form-select filter-control" style="background: white; border: 1px solid #d1d5db; color: #1f2937;">
                                 <option value="">All Categories</option>
                                 @foreach (var cat in categories)
                                 {
@@ -138,8 +138,8 @@
 
                         <!-- Brand Filter -->
                         <div class="mb-4">
-                            <label class="form-label fw-semibold">Brand</label>
-                            <select name="brand" class="form-select filter-control">
+                            <label class="form-label fw-semibold" style="color: #1f2937;">Brand</label>
+                            <select name="brand" class="form-select filter-control" style="background: white; border: 1px solid #d1d5db; color: #1f2937;">
                                 <option value="">All Brands</option>
                                 @foreach (var brandOption in brands)
                                 {
@@ -157,21 +157,21 @@
 
                         <!-- Price Filter -->
                         <div class="mb-4">
-                            <label class="form-label fw-semibold">Price Range</label>
+                            <label class="form-label fw-semibold" style="color: #1f2937;">Price Range</label>
                             <div class="row">
                                 <div class="col-6">
-                                    <input type="number" name="minPrice" class="form-control filter-control" placeholder="Min" value="@minPrice" min="0" step="0.01">
+                                    <input type="number" name="minPrice" class="form-control filter-control" placeholder="Min" value="@minPrice" min="0" step="0.01" style="background: white; border: 1px solid #d1d5db; color: #1f2937;">
                                 </div>
                                 <div class="col-6">
-                                    <input type="number" name="maxPrice" class="form-control filter-control" placeholder="Max" value="@maxPrice" min="0" step="0.01">
+                                    <input type="number" name="maxPrice" class="form-control filter-control" placeholder="Max" value="@maxPrice" min="0" step="0.01" style="background: white; border: 1px solid #d1d5db; color: #1f2937;">
                                 </div>
                             </div>
                         </div>
 
                         <!-- Region Filter -->
                         <div class="mb-4">
-                            <label class="form-label fw-semibold">Region</label>
-                            <select name="region" class="form-select filter-control">
+                            <label class="form-label fw-semibold" style="color: #1f2937;">Region</label>
+                            <select name="region" class="form-select filter-control" style="background: white; border: 1px solid #d1d5db; color: #1f2937;">
                                 <option value="">All Regions</option>
                                 @foreach (var regionOption in regions)
                                 {
@@ -191,8 +191,8 @@
                         <input type="hidden" name="sortBy" value="@sortBy">
                         <input type="hidden" name="page" value="1">
 
-                        <button type="submit" class="btn btn-primary w-100">Apply Filters</button>
-                        <a href="/products" class="btn btn-outline-secondary w-100 mt-2">Clear All</a>
+                        <button type="submit" class="btn btn-primary w-100 mb-2">Apply Filters</button>
+                        <a href="/products" class="btn w-100" style="border: 2px solid #374151; color: #374151; background: transparent; border-radius: 30px; padding: 0.75rem 2rem; font-size: 0.95rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.background='#374151'; this.style.color='white';" onmouseout="this.style.background='transparent'; this.style.color='#374151';">Clear All</a>
                     </form>
                 </div>
             </div>
@@ -202,16 +202,16 @@
                 <!-- Results Header -->
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <div>
-                        <h6 class="mb-0">Showing @pagedProducts.Count() of @totalProducts products</h6>
+                        <h6 class="mb-0" style="color: #1f2937;">Showing @pagedProducts.Count() of @totalProducts products</h6>
                         @if (!string.IsNullOrEmpty(category) || !string.IsNullOrEmpty(brand) || !string.IsNullOrEmpty(minPrice) || !string.IsNullOrEmpty(maxPrice))
                         {
-                            <small class="text-muted">Filters applied</small>
+                            <small style="color: #6b7280;">Filters applied</small>
                         }
                     </div>
                     
                     <!-- Sort Dropdown -->
                     <div>
-                        <select name="sortBy" class="form-select" style="width: auto;" onchange="updateSort(this.value)">
+                        <select name="sortBy" class="form-select" style="width: auto; background: white; border: 1px solid #d1d5db; color: #1f2937;" onchange="updateSort(this.value)">
                             @if (string.IsNullOrEmpty(sortBy))
                             {
                                 <option value="" selected>Sort by Rating</option>
@@ -291,21 +291,32 @@
                                 "toys" => "fas fa-gamepad",
                                 _ => "fas fa-box"
                             };
+
+                            var gradientBg = productCategory?.ToLower() switch
+                            {
+                                "electronics" => "background: radial-gradient(circle at 30% 40%, rgba(120, 119, 198, 0.8) 0%, rgba(255, 119, 198, 0.6) 50%, transparent 100%);",
+                                "clothing" => "background: radial-gradient(circle at 70% 30%, rgba(255, 119, 198, 0.8) 0%, rgba(120, 200, 255, 0.6) 50%, transparent 100%);",
+                                "books" => "background: radial-gradient(circle at 50% 60%, rgba(120, 200, 255, 0.8) 0%, rgba(120, 255, 200, 0.6) 50%, transparent 100%);",
+                                "home" => "background: radial-gradient(circle at 20% 80%, rgba(120, 255, 200, 0.8) 0%, rgba(255, 200, 120, 0.6) 50%, transparent 100%);",
+                                "toys" => "background: radial-gradient(circle at 80% 20%, rgba(255, 200, 120, 0.8) 0%, rgba(255, 119, 198, 0.6) 50%, transparent 100%);",
+                                _ => "background: radial-gradient(circle at 50% 50%, rgba(120, 119, 198, 0.8) 0%, rgba(255, 119, 198, 0.6) 50%, transparent 100%);"
+                            };
                             
                             <div class="col-lg-6 col-md-12 mb-4">
-                                <div class="card product-card h-100">
+                                <div class="card product-card h-100" style="background: white; border: 1px solid #e5e7eb; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: all 0.3s ease; border-radius: 16px;">
                                     <div class="row g-0">
                                         <div class="col-4">
-                                            <div class="product-image d-flex align-items-center justify-content-center h-100" style="background: linear-gradient(45deg, #f3f4f6, #e5e7eb); min-height: 200px;">
-                                                <i class="@iconClass text-primary" style="font-size: 2.5rem;"></i>
+                                            <div class="product-image d-flex align-items-center justify-content-center h-100 position-relative" style="@gradientBg background-color: #f3f4f6; min-height: 200px; border-radius: 16px 0 0 16px;">
+                                                <i class="@iconClass" style="font-size: 2.5rem; color: white; opacity: 0.9; z-index: 2;"></i>
+                                                <div class="position-absolute w-100 h-100" style="background: rgba(0,0,0,0.1); opacity: 0.3; z-index: 1; border-radius: 16px 0 0 16px;"></div>
                                             </div>
                                         </div>
                                         <div class="col-8">
                                             <div class="card-body">
                                                 <h6 class="card-title mb-2">
-                                                    <a href="@product.Url()" class="text-decoration-none">@productTitle</a>
+                                                    <a href="@product.Url()" class="text-decoration-none" style="color: #1f2937;">@productTitle</a>
                                                 </h6>
-                                                <p class="text-muted small mb-2">@productCategory • @productBrand</p>
+                                                <p class="small mb-2" style="color: #6b7280;">@productCategory • @productBrand</p>
                                                 
                                                 <!-- Rating -->
                                                 <div class="mb-2">
@@ -313,24 +324,24 @@
                                                     {
                                                         if (i <= rating)
                                                         {
-                                                            <i class="fas fa-star text-warning"></i>
+                                                            <i class="fas fa-star" style="color: #ffc107;"></i>
                                                         }
                                                         else
                                                         {
-                                                            <i class="far fa-star text-warning"></i>
+                                                            <i class="far fa-star" style="color: #ffc107;"></i>
                                                         }
                                                     }
-                                                    <span class="ms-1 small">@rating.ToString("F1")</span>
+                                                    <span class="ms-1 small" style="color: #1f2937;">@rating.ToString("F1")</span>
                                                 </div>
 
                                                 <!-- Price and Region -->
-                                                <div class="d-flex justify-content-between align-items-center">
-                                                    <span class="price fs-5 fw-bold">$@price.ToString("F2")</span>
-                                                    <small class="text-muted">@productRegion</small>
+                                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                                    <span class="price fs-5 fw-bold" style="color: var(--primary-button);">$@price.ToString("F2")</span>
+                                                    <small style="color: #6b7280;">@productRegion</small>
                                                 </div>
                                                 <!-- Action buttons -->
                                                 <div class="d-flex gap-2">
-                                                    <a href="@product.Url()" class="btn btn-outline-primary btn-sm flex-grow-1">View Details</a>
+                                                    <a href="@product.Url()" class="btn btn-sm flex-grow-1" style="border: 2px solid #374151; color: #374151; background: transparent; border-radius: 30px; padding: 0.5rem 1rem; font-size: 0.875rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.background='#374151'; this.style.color='white';" onmouseout="this.style.background='transparent'; this.style.color='#374151';">View Details</a>
                                                     <button class="btn btn-primary btn-sm" 
                                                         data-product-id="@product.Id" 
                                                         data-product-title="@productTitle" 
@@ -357,7 +368,7 @@
                                 @if (currentPage > 1)
                                 {
                                     <li class="page-item">
-                                        <a class="page-link" href="@GetPageUrl(currentPage - 1)">
+                                        <a class="page-link" href="@GetPageUrl(currentPage - 1)" style="color: #1f2937; border: 1px solid #d1d5db; background: white; margin: 0 2px; border-radius: 8px; padding: 0.5rem 0.75rem; transition: all 0.2s ease;">
                                             <i class="fas fa-chevron-left"></i>
                                         </a>
                                     </li>
@@ -366,14 +377,14 @@
                                 @for (int i = Math.Max(1, currentPage - 2); i <= Math.Min(totalPages, currentPage + 2); i++)
                                 {
                                     <li class="page-item @(i == currentPage ? "active" : "")">
-                                        <a class="page-link" href="@GetPageUrl(i)">@i</a>
+                                        <a class="page-link" href="@GetPageUrl(i)" style="@(i == currentPage ? "background: var(--primary-button); border-color: var(--primary-button); color: white !important;" : "color: #1f2937; border: 1px solid #d1d5db; background: white;") margin: 0 2px; border-radius: 8px; padding: 0.5rem 0.75rem; transition: all 0.2s ease;">@i</a>
                                     </li>
                                 }
 
                                 @if (currentPage < totalPages)
                                 {
                                     <li class="page-item">
-                                        <a class="page-link" href="@GetPageUrl(currentPage + 1)">
+                                        <a class="page-link" href="@GetPageUrl(currentPage + 1)" style="color: #1f2937; border: 1px solid #d1d5db; background: white; margin: 0 2px; border-radius: 8px; padding: 0.5rem 0.75rem; transition: all 0.2s ease;">
                                             <i class="fas fa-chevron-right"></i>
                                         </a>
                                     </li>
@@ -386,9 +397,9 @@
                 {
                     <!-- No Products Found -->
                     <div class="text-center py-5">
-                        <i class="fas fa-search text-muted" style="font-size: 4rem;"></i>
-                        <h4 class="mt-3">No Products Found</h4>
-                        <p class="text-muted">Try adjusting your filters or search criteria</p>
+                        <i class="fas fa-search" style="font-size: 4rem; color: #6b7280;"></i>
+                        <h4 class="mt-3" style="color: #1f2937;">No Products Found</h4>
+                        <p style="color: #6b7280;">Try adjusting your filters or search criteria</p>
                         <a href="/products" class="btn btn-primary">Clear Filters</a>
                     </div>
                 }

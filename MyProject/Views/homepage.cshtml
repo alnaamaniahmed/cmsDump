@@ -7,20 +7,20 @@
 }
 
 <!-- Hero Section -->
-<section class="hero-section" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 6rem 0; color: white;">
+<section class="hero-section">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-6">
                 <h1 class="display-4 fw-bold mb-4">@heroTitle</h1>
                 <p class="lead mb-4">@heroSubtitle</p>
                 <div class="d-flex gap-3 flex-wrap">
-                    <a href="/products" class="btn btn-light btn-lg">Explore Products</a>
+                    <a href="/products" class="btn btn-primary btn-lg">Explore Products</a>
                     <a href="#services" class="btn btn-outline-light btn-lg">Our Services</a>
                 </div>
             </div>
             <div class="col-lg-6 text-center">
                 <div class="hero-image-placeholder" style="background: rgba(255,255,255,0.1); border-radius: 20px; padding: 3rem; margin-top: 2rem;">
-                    <i class="fas fa-laptop-code" style="font-size: 8rem; opacity: 0.7;"></i>
+                    <i class="fas fa-laptop-code" style="font-size: 8rem; opacity: 0.7; color: white;"></i>
                 </div>
             </div>
         </div>
@@ -28,76 +28,80 @@
 </section>
 
 <!-- Services Section -->
-<section id="services" class="py-5" style="background: var(--bg-light);">
+<section id="services" style="background: #f8fafc; padding: 5rem 0;">
     <div class="container">
-        <div class="text-center mb-5">
-            <h2 class="fw-bold">What We Do</h2>
-            <p class="lead text-muted">Comprehensive digital solutions tailored to your business needs</p>
+        <div class="mb-5">
+            <p class="text-uppercase" style="color: var(--primary-button); font-weight: 500; letter-spacing: 1px; margin-bottom: 2rem;">What We Do →</p>
+            <div class="row">
+                <div class="col-lg-10">
+                    <h2 class="fw-bold mb-4" style="color: #1f2937;">Comprehensive digital solutions tailored to your business needs</h2>
+                </div>
+            </div>
         </div>
         <div class="row">
             <div class="col-lg-4 col-md-6 mb-4">
-                <div class="card text-center h-100">
-                    <div class="card-body p-4">
-                        <div class="mb-3">
-                            <i class="fas fa-code text-primary" style="font-size: 3rem;"></i>
+                <div class="card service-card" style="background: white; border: 1px solid #e5e7eb; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: all 0.3s ease;">
+                    <div class="card-body" style="padding: 2.5rem 2rem;">
+                        <div class="service-icon">
+                            <i class="fas fa-code"></i>
                         </div>
-                        <h5 class="card-title">Web Development</h5>
-                        <p class="card-text">Custom web applications built with modern technologies and best practices for optimal performance.</p>
+                        <h5 class="card-title" style="color: #1f2937;">Web Development</h5>
+                        <p class="card-text" style="color: #6b7280;">Custom web applications built with modern technologies and best practices for optimal performance.</p>
                     </div>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 mb-4">
-                <div class="card text-center h-100">
-                    <div class="card-body p-4">
-                        <div class="mb-3">
-                            <i class="fas fa-palette text-primary" style="font-size: 3rem;"></i>
+                <div class="card service-card" style="background: white; border: 1px solid #e5e7eb; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: all 0.3s ease;">
+                    <div class="card-body" style="padding: 2.5rem 2rem;">
+                        <div class="service-icon">
+                            <i class="fas fa-palette"></i>
                         </div>
-                        <h5 class="card-title">UX/UI Design</h5>
-                        <p class="card-text">Beautiful, intuitive designs that enhance user experience and drive engagement across all devices.</p>
+                        <h5 class="card-title" style="color: #1f2937;">UX/UI Design</h5>
+                        <p class="card-text" style="color: #6b7280;">Beautiful, intuitive designs that enhance user experience and drive engagement across all devices.</p>
                     </div>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 mb-4">
-                <div class="card text-center h-100">
-                    <div class="card-body p-4">
-                        <div class="mb-3">
-                            <i class="fas fa-chart-line text-primary" style="font-size: 3rem;"></i>
+                <div class="card service-card" style="background: white; border: 1px solid #e5e7eb; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: all 0.3s ease;">
+                    <div class="card-body" style="padding: 2.5rem 2rem;">
+                        <div class="service-icon">
+                            <i class="fas fa-chart-line"></i>
                         </div>
-                        <h5 class="card-title">Digital Strategy</h5>
-                        <p class="card-text">Data-driven strategies to maximize your digital presence and achieve measurable business results.</p>
+                        <h5 class="card-title" style="color: #1f2937;">Digital Strategy</h5>
+                        <p class="card-text" style="color: #6b7280;">Data-driven strategies to maximize your digital presence and achieve measurable business results.</p>
                     </div>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 mb-4">
-                <div class="card text-center h-100">
-                    <div class="card-body p-4">
-                        <div class="mb-3">
-                            <i class="fas fa-cogs text-primary" style="font-size: 3rem;"></i>
+                <div class="card service-card" style="background: white; border: 1px solid #e5e7eb; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: all 0.3s ease;">
+                    <div class="card-body" style="padding: 2.5rem 2rem;">
+                        <div class="service-icon">
+                            <i class="fas fa-cogs"></i>
                         </div>
-                        <h5 class="card-title">CMS Solutions</h5>
-                        <p class="card-text">Powerful content management systems that give you full control over your digital content.</p>
+                        <h5 class="card-title" style="color: #1f2937;">CMS Solutions</h5>
+                        <p class="card-text" style="color: #6b7280;">Powerful content management systems that give you full control over your digital content.</p>
                     </div>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 mb-4">
-                <div class="card text-center h-100">
-                    <div class="card-body p-4">
-                        <div class="mb-3">
-                            <i class="fas fa-mobile-alt text-primary" style="font-size: 3rem;"></i>
+                <div class="card service-card" style="background: white; border: 1px solid #e5e7eb; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: all 0.3s ease;">
+                    <div class="card-body" style="padding: 2.5rem 2rem;">
+                        <div class="service-icon">
+                            <i class="fas fa-mobile-alt"></i>
                         </div>
-                        <h5 class="card-title">Mobile Apps</h5>
-                        <p class="card-text">Native and cross-platform mobile applications that deliver exceptional user experiences.</p>
+                        <h5 class="card-title" style="color: #1f2937;">Mobile Apps</h5>
+                        <p class="card-text" style="color: #6b7280;">Native and cross-platform mobile applications that deliver exceptional user experiences.</p>
                     </div>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 mb-4">
-                <div class="card text-center h-100">
-                    <div class="card-body p-4">
-                        <div class="mb-3">
-                            <i class="fas fa-cloud text-primary" style="font-size: 3rem;"></i>
+                <div class="card service-card" style="background: white; border: 1px solid #e5e7eb; box-shadow: 0 1px 3px rgba(0,0,0,0.1); transition: all 0.3s ease;">
+                    <div class="card-body" style="padding: 2.5rem 2rem;">
+                        <div class="service-icon">
+                            <i class="fas fa-cloud"></i>
                         </div>
-                        <h5 class="card-title">Cloud Solutions</h5>
-                        <p class="card-text">Scalable cloud infrastructure and services to support your growing business needs.</p>
+                        <h5 class="card-title" style="color: #1f2937;">Cloud Solutions</h5>
+                        <p class="card-text" style="color: #6b7280;">Scalable cloud infrastructure and services to support your growing business needs.</p>
                     </div>
                 </div>
             </div>
@@ -105,13 +109,12 @@
     </div>
 </section>
 
-
 <!-- Featured Products Section -->
-<section class="py-5">
+<section style="background: var(--bg-darker);">
     <div class="container">
-        <div class="text-center mb-5">
-            <h2 class="fw-bold">Featured Products</h2>
-            <p class="lead text-muted">Discover our most popular and innovative solutions</p>
+        <div class="mb-5">
+            <p class="text-uppercase" style="color: var(--primary-button); font-weight: 500; letter-spacing: 1px; margin-bottom: 2rem;">Featured Products →</p>
+            <h2 class="fw-bold">Discover our most popular and innovative solutions</h2>
         </div>
         
         @{
@@ -144,20 +147,21 @@
                         _ => "fas fa-box"
                     };
                     
-                    var gradientClass = category?.ToLower() switch
+                    var gradientBg = category?.ToLower() switch
                     {
-                        "electronics" => "linear-gradient(45deg, #f3f4f6, #e5e7eb)",
-                        "clothing" => "linear-gradient(45deg, #fef3c7, #fde68a)",
-                        "books" => "linear-gradient(45deg, #ddd6fe, #c7d2fe)",
-                        "home" => "linear-gradient(45deg, #dcfce7, #bbf7d0)",
-                        "toys" => "linear-gradient(45deg, #fed7e2, #fbb6ce)",
-                        _ => "linear-gradient(45deg, #f3f4f6, #e5e7eb)"
+                        "electronics" => "background: radial-gradient(circle at 30% 40%, rgba(120, 119, 198, 0.8) 0%, rgba(255, 119, 198, 0.6) 50%, transparent 100%);",
+                        "clothing" => "background: radial-gradient(circle at 70% 30%, rgba(255, 119, 198, 0.8) 0%, rgba(120, 200, 255, 0.6) 50%, transparent 100%);",
+                        "books" => "background: radial-gradient(circle at 50% 60%, rgba(120, 200, 255, 0.8) 0%, rgba(120, 255, 200, 0.6) 50%, transparent 100%);",
+                        "home" => "background: radial-gradient(circle at 20% 80%, rgba(120, 255, 200, 0.8) 0%, rgba(255, 200, 120, 0.6) 50%, transparent 100%);",
+                        "toys" => "background: radial-gradient(circle at 80% 20%, rgba(255, 200, 120, 0.8) 0%, rgba(255, 119, 198, 0.6) 50%, transparent 100%);",
+                        _ => "background: radial-gradient(circle at 50% 50%, rgba(120, 119, 198, 0.8) 0%, rgba(255, 119, 198, 0.6) 50%, transparent 100%);"
                     };
                     
                     <div class="col-lg-4 col-md-6 mb-4">
                         <div class="card product-card">
-                            <div class="product-image card-img-top d-flex align-items-center justify-content-center" style="height: 200px; background: @gradientClass;">
-                                <i class="@iconClass text-primary" style="font-size: 4rem;"></i>
+                            <div class="product-image card-img-top d-flex align-items-center justify-content-center position-relative" style="height: 200px; @gradientBg background-color: var(--bg-darker);">
+                                <i class="@iconClass" style="font-size: 4rem; color: white; opacity: 0.9; z-index: 2;"></i>
+                                <div class="position-absolute w-100 h-100" style="background: var(--bg-darker); opacity: 0.3; z-index: 1;"></div>
                             </div>
                             <div class="card-body">
                                 <h5 class="card-title">@productTitle</h5>
@@ -187,7 +191,7 @@
                                     </div>
                                 </div>
                                 <div class="d-flex gap-2 mt-3">
-                                    <a href="@product.Url()" class="btn btn-outline-primary flex-grow-1">View Details</a>
+                                    <a href="@product.Url()" class="btn btn-outline-light flex-grow-1">View Details</a>
                                     <button class="btn btn-primary" data-product-id="@product.Id" data-product-title="@productTitle" data-product-price="@price" data-product-category="@category" data-product-url="@product.Url()" onclick="addToCartFromHomeData(this)">
                                         <i class="fas fa-cart-plus"></i>
                                     </button>
@@ -204,8 +208,9 @@
             <div class="row">
                 <div class="col-lg-4 col-md-6 mb-4">
                     <div class="card product-card">
-                        <div class="product-image card-img-top d-flex align-items-center justify-content-center" style="height: 200px; background: linear-gradient(45deg, #f3f4f6, #e5e7eb);">
-                            <i class="fas fa-laptop text-primary" style="font-size: 4rem;"></i>
+                        <div class="product-image card-img-top d-flex align-items-center justify-content-center position-relative" style="height: 200px; background: radial-gradient(circle at 50% 50%, rgba(120, 119, 198, 0.8) 0%, rgba(255, 119, 198, 0.6) 50%, transparent 100%); background-color: var(--bg-darker);">
+                            <i class="fas fa-laptop" style="font-size: 4rem; color: white; opacity: 0.9; z-index: 2;"></i>
+                            <div class="position-absolute w-100 h-100" style="background: var(--bg-darker); opacity: 0.3; z-index: 1;"></div>
                         </div>
                         <div class="card-body">
                             <h5 class="card-title">Sample Product</h5>
@@ -229,37 +234,37 @@
         }
         
         <div class="text-center mt-4">
-            <a href="/products" class="btn btn-outline-primary btn-lg">View All Products</a>
+            <a href="/products" class="btn btn-outline-light btn-lg">View All Products</a>
         </div>
     </div>
 </section>
 
 <!-- Stats Section -->
-<section class="py-5" style="background: var(--primary-color); color: white;">
+<section class="stats-section">
     <div class="container">
         <div class="row text-center">
             <div class="col-lg-3 col-md-6 mb-4">
                 <div class="stat-item">
-                    <h3 class="display-4 fw-bold">500+</h3>
-                    <p class="lead">Projects Completed</p>
+                    <h3 class="display-4 fw-bold" style="color: var(--text-white);">500+</h3>
+                    <p class="lead" style="color: var(--text-gray);">Projects Completed</p>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 mb-4">
                 <div class="stat-item">
-                    <h3 class="display-4 fw-bold">50+</h3>
-                    <p class="lead">Happy Clients</p>
+                    <h3 class="display-4 fw-bold" style="color: var(--text-white);">50+</h3>
+                    <p class="lead" style="color: var(--text-gray);">Happy Clients</p>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 mb-4">
                 <div class="stat-item">
-                    <h3 class="display-4 fw-bold">5+</h3>
-                    <p class="lead">Years Experience</p>
+                    <h3 class="display-4 fw-bold" style="color: var(--text-white);">5+</h3>
+                    <p class="lead" style="color: var(--text-gray);">Years Experience</p>
                 </div>
             </div>
             <div class="col-lg-3 col-md-6 mb-4">
                 <div class="stat-item">
-                    <h3 class="display-4 fw-bold">24/7</h3>
-                    <p class="lead">Support Available</p>
+                    <h3 class="display-4 fw-bold" style="color: var(--text-white);">24/7</h3>
+                    <p class="lead" style="color: var(--text-gray);">Support Available</p>
                 </div>
             </div>
         </div>
@@ -267,15 +272,15 @@
 </section>
 
 <!-- CTA Section -->
-<section class="py-5">
+<section style="background: #f8fafc; padding: 5rem 0;">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 mx-auto text-center">
-                <h2 class="fw-bold mb-4">Ready to Get Started?</h2>
-                <p class="lead mb-4">Let's work together to create something amazing. Contact us today to discuss your project and see how we can help bring your vision to life.</p>
+                <h2 class="fw-bold mb-4" style="color: #1f2937;">Ready to Get Started?</h2>
+                <p class="lead mb-4" style="color: #6b7280;">Let's work together to create something amazing. Contact us today to discuss your project and see how we can help bring your vision to life.</p>
                 <div class="d-flex gap-3 justify-content-center flex-wrap">
                     <a href="/products" class="btn btn-primary btn-lg">Explore Products</a>
-                    <a href="#contact" class="btn btn-outline-primary btn-lg">Get In Touch</a>
+                    <a href="#contact" class="btn" style="border: 2px solid #374151; color: #374151; background: transparent; border-radius: 30px; padding: 1rem 2.5rem; font-size: 1rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.background='#374151'; this.style.color='white';" onmouseout="this.style.background='transparent'; this.style.color='#374151';">Get In Touch</a>
                 </div>
             </div>
         </div>

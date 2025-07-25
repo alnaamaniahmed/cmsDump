@@ -8,29 +8,31 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>@(Model.Value("seoTitle", fallback: Fallback.ToDefaultValue, defaultValue: Model.Name)) - ContentBloom MVP
-	</title>
+	<title>@(Model.Value("seoTitle", fallback: Fallback.ToDefaultValue, defaultValue: Model.Name)) - ContentBloom MVP</title>
 	<meta name="description" content="@Model.Value("seoDescription")">
 
 	<!-- Bootstrap CSS -->
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
 	<!-- Font Awesome -->
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-	<!-- Google Fonts -->
-	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+	<!-- Google Fonts - Roboto -->
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 	<!-- Favicon -->
 	<link rel="icon" type="image/png" href="/media/1htbr1o/favicon.png">
 	<link rel="apple-touch-icon" href="/media/1htbr1o/favicon.png">
 
 	<style>
 		:root {
-			--primary-color: #2563eb;
-			--secondary-color: #64748b;
-			--accent-color: #f59e0b;
-			--text-dark: #1e293b;
-			--text-light: #64748b;
-			--border-color: #e2e8f0;
-			--bg-light: #f8fafc;
+			/* ContentBloom actual color palette */
+			--primary-button: #EF5E59; /* Coral button color from ContentBloom */
+			--primary-button-hover: #e04e49; /* Darker coral for hover */
+			--bg-dark: #0f0f0f; /* Very dark background */
+			--bg-darker: #000000; /* Pure black */
+			--text-white: #ffffff; /* Pure white text */
+			--text-gray: #a0a0a0; /* Light gray text */
+			--text-muted: #666666; /* Muted gray */
+			--border-dark: #333333; /* Dark borders */
+			--card-dark: #1a1a1a; /* Dark card background */
 		}
 
 		* {
@@ -40,79 +42,159 @@
 		}
 
 		body {
-			font-family: 'Inter', sans-serif;
+			font-family: 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
 			line-height: 1.6;
-			color: var(--text-dark);
+			color: var(--text-white);
+			background: var(--bg-dark);
+			font-weight: 400;
 		}
 
-		/* Navigation */
+		/* Typography */
+		h1, h2, h3, h4, h5, h6 {
+			font-weight: 700;
+			line-height: 1.2;
+			color: var(--text-white);
+		}
+
+		h1 {
+			font-weight: 900;
+			font-size: 3.5rem;
+		}
+
+		h2 {
+			font-size: 2.5rem;
+			font-weight: 700;
+		}
+
+		.lead {
+			font-size: 1.125rem;
+			font-weight: 400;
+			color: var(--text-gray);
+			line-height: 1.7;
+		}
+
+		/* Navigation - Dark theme like ContentBloom */
 		.navbar {
-			background: white;
-			box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+			background: var(--bg-darker);
 			padding: 1rem 0;
+			border-bottom: 1px solid var(--border-dark);
 		}
 
 		.navbar-brand {
-			font-weight: 700;
-			font-size: 1.8rem;
-			color: var(--primary-color) !important;
+			display: flex;
+			align-items: center;
+			color: var(--text-white) !important;
+			font-weight: 500;
+			text-decoration: none;
+		}
+
+		.navbar-brand img {
+			height: 45px;
+			width: auto;
+			object-fit: contain;
 		}
 
 		.navbar-nav .nav-link {
-			color: var(--text-dark) !important;
-			font-weight: 500;
-			margin: 0 0.5rem;
-			transition: color 0.3s ease;
+			color: var(--text-white) !important;
+			font-weight: 400;
+			margin: 0 1rem;
+			padding: 0.5rem 0 !important;
+			transition: all 0.2s ease;
+			font-size: 0.95rem;
+			text-transform: uppercase;
+			letter-spacing: 0.5px;
 		}
 
 		.navbar-nav .nav-link:hover {
-			color: var(--primary-color) !important;
+			color: var(--text-gray) !important;
 		}
 
-		/* Buttons */
-		.btn-primary {
-			background: var(--primary-color);
+		.navbar-toggler {
 			border: none;
+			padding: 0.25rem 0.5rem;
+		}
+
+		.navbar-toggler-icon {
+			background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.8%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='m4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+		}
+
+		/* Buttons - ContentBloom style */
+		.btn {
+			font-weight: 500;
+			border-radius: 30px;
 			padding: 0.75rem 2rem;
-			font-weight: 600;
-			border-radius: 8px;
 			transition: all 0.3s ease;
+			font-size: 0.95rem;
+			border: none;
+			text-decoration: none;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			gap: 0.5rem;
+			text-transform: uppercase;
+			letter-spacing: 0.5px;
+		}
+
+		.btn-primary {
+			background: var(--primary-button);
+			color: white;
+			box-shadow: 0 4px 15px rgba(239, 94, 89, 0.3);
 		}
 
 		.btn-primary:hover {
-			background: #1d4ed8;
+			background: var(--primary-button-hover);
+			transform: translateY(-2px);
+			box-shadow: 0 6px 20px rgba(239, 94, 89, 0.4);
+			color: white;
+		}
+
+		.btn-outline-light {
+			color: var(--text-white);
+			border: 2px solid var(--text-white);
+			background: transparent;
+		}
+
+		.btn-outline-light:hover {
+			background: var(--text-white);
+			color: var(--bg-dark);
 			transform: translateY(-2px);
 		}
 
-		.btn-outline-primary {
-			color: var(--primary-color);
-			border: 2px solid var(--primary-color);
-			padding: 0.75rem 2rem;
-			font-weight: 600;
-			border-radius: 8px;
-			transition: all 0.3s ease;
+		.btn-lg {
+			padding: 1rem 2.5rem;
+			font-size: 1rem;
 		}
 
-		.btn-outline-primary:hover {
-			background: var(--primary-color);
-			transform: translateY(-2px);
-		}
-
-		/* Cards */
+		/* Cards - Dark theme */
 		.card {
 			border: none;
-			border-radius: 12px;
-			box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+			border-radius: 16px;
+			background: var(--card-dark);
+			border: 1px solid var(--border-dark);
 			transition: all 0.3s ease;
 			overflow: hidden;
 		}
 
 		.card:hover {
 			transform: translateY(-8px);
-			box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+			border-color: var(--primary-button);
+			box-shadow: 0 8px 30px rgba(239, 94, 89, 0.2);
 		}
 
-		/* Product specific styles */
+		.card-body {
+			padding: 2rem;
+		}
+
+		.card-title {
+			color: var(--text-white);
+			margin-bottom: 1rem;
+		}
+
+		.card-text {
+			color: var(--text-gray);
+		}
+
+		/* Product Cards */
 		.product-card {
 			height: 100%;
 		}
@@ -120,109 +202,159 @@
 		.product-image {
 			height: 200px;
 			object-fit: cover;
-			background: var(--bg-light);
+			background: var(--bg-darker);
 		}
 
 		.price {
 			font-size: 1.5rem;
 			font-weight: 700;
-			color: var(--primary-color);
+			color: var(--primary-button);
 		}
 
 		.rating {
-			color: var(--accent-color);
+			color: #ffc107;
 		}
 
-		/* Filters */
-		.filter-section {
-			background: white;
-			border-radius: 12px;
-			padding: 1.5rem;
-			box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-			margin-bottom: 2rem;
+		/* Hero Section - Dark with gradients like ContentBloom */
+		.hero-section {
+			background: var(--bg-darker);
+			padding: 8rem 0;
+			color: var(--text-white);
+			position: relative;
+			overflow: hidden;
 		}
 
-		/* Footer */
+		.hero-section::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background: radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+						radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+						radial-gradient(circle at 40% 40%, rgba(120, 200, 255, 0.2) 0%, transparent 50%);
+			opacity: 0.8;
+		}
+
+		.hero-section .container {
+			position: relative;
+			z-index: 1;
+		}
+
+		.hero-image-placeholder {
+			background: rgba(255, 255, 255, 0.05);
+			border-radius: 20px;
+			padding: 3rem;
+			margin-top: 2rem;
+			backdrop-filter: blur(10px);
+			border: 1px solid rgba(255, 255, 255, 0.1);
+		}
+
+		/* Sections */
+		section {
+			padding: 5rem 0;
+			background: var(--bg-dark);
+		}
+
+		/* Service Cards with smooth transitions */
+		.service-card {
+			text-align: center;
+			height: 100%;
+			transition: all 0.3s ease;
+			border-radius: 16px !important;
+		}
+
+		.service-card:hover {
+			transform: translateY(-8px);
+			box-shadow: 0 12px 40px rgba(0,0,0,0.15) !important;
+		}
+
+		.service-icon {
+			width: 80px;
+			height: 80px;
+			background: rgba(239, 94, 89, 0.1);
+			border-radius: 20px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			margin: 0 auto 1.5rem;
+			color: var(--primary-button);
+			font-size: 2rem;
+			border: 2px solid rgba(239, 94, 89, 0.2);
+			transition: all 0.3s ease;
+		}
+
+		.service-card:hover .service-icon {
+			background: var(--primary-button);
+			color: white;
+			border-color: var(--primary-button);
+			transform: scale(1.1);
+		}
+
+		/* Footer - Dark theme */
+		.footer {
+			background: var(--bg-darker);
+			color: var(--text-gray);
+			padding: 4rem 0 2rem;
+			margin-top: 6rem;
+			border-top: 1px solid var(--border-dark);
+		}
+
+		.footer h5 {
+			color: var(--text-white);
+			margin-bottom: 1.5rem;
+			font-weight: 600;
+		}
+
 		.footer a {
-			color: #94a3b8;
+			color: var(--text-gray);
 			text-decoration: none;
-			transition: color 0.3s ease;
+			transition: color 0.2s ease;
 		}
 
 		.footer a:hover {
-			color: white;
+			color: var(--primary-button);
 		}
 
-		/* Fix footer text visibility */
 		.footer .text-muted {
-			color: #94a3b8 !important;
-			/* Override Bootstrap's text-muted */
+			color: var(--text-gray) !important;
 		}
 
 		.footer p {
-			color: #94a3b8;
-			/* Ensure all footer paragraphs are visible */
+			color: var(--text-gray);
 		}
 
-		/* Responsive */
-		@@media (max-width: 768px) {
-			.hero-section h1 {
-				font-size: 2.5rem !important;
-			}
-
-			.filter-section {
-				margin-bottom: 1rem;
-			}
+		/* Stats Section with gradient background */
+		.stats-section {
+			background: var(--bg-darker);
+			position: relative;
+			overflow: hidden;
 		}
 
-		/* Loading states */
-		.loading {
+		.stats-section::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background: radial-gradient(circle at 30% 70%, rgba(120, 119, 198, 0.4) 0%, transparent 50%),
+						radial-gradient(circle at 70% 30%, rgba(255, 119, 198, 0.4) 0%, transparent 50%);
 			opacity: 0.6;
-			pointer-events: none;
 		}
 
-		/* Pagination fixes */
-		.pagination .page-link {
-			color: var(--primary-color);
-			border: 1px solid var(--border-color);
-			margin: 0 2px;
-			border-radius: 8px;
-			padding: 0.5rem 0.75rem;
+		.stats-section .container {
+			position: relative;
+			z-index: 1;
 		}
 
-		.pagination .page-link:hover {
-			background: var(--primary-color);
-			color: white;
-			border-color: var(--primary-color);
-		}
-
-		.pagination .page-item.active .page-link {
-			background: var(--primary-color);
-			border-color: var(--primary-color);
-			color: white !important;
-			/* Force white text on active page */
-		}
-
-		.pagination .page-item.active .page-link:hover {
-			background: #1d4ed8;
-			/* Darker blue on hover */
-			border-color: #1d4ed8;
-			color: white !important;
-		}
-
-		/* Ensure disabled pagination items are properly styled */
-		.pagination .page-item.disabled .page-link {
-			color: #6c757d;
-			background-color: #fff;
-			border-color: #dee2e6;
-		}
-
-		/* Cart Badge */
+		/* Cart styles - Dark theme */
 		.cart-badge {
 			position: absolute;
 			top: -8px;
 			right: -8px;
-			background: #dc3545;
+			background: var(--primary-button);
 			color: white;
 			border-radius: 50%;
 			width: 20px;
@@ -231,7 +363,7 @@
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			font-weight: bold;
+			font-weight: 600;
 		}
 
 		.cart-icon-container {
@@ -239,18 +371,18 @@
 			display: inline-block;
 		}
 
-		/* Cart Sidebar */
 		.cart-sidebar {
 			position: fixed;
 			top: 0;
 			right: -400px;
 			width: 400px;
 			height: 100vh;
-			background: white;
-			box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+			background: var(--card-dark);
+			box-shadow: -4px 0 20px rgba(0, 0, 0, 0.5);
 			z-index: 1050;
 			transition: right 0.3s ease;
 			overflow-y: auto;
+			border-left: 1px solid var(--border-dark);
 		}
 
 		.cart-sidebar.open {
@@ -263,9 +395,10 @@
 			left: 0;
 			width: 100%;
 			height: 100%;
-			background: rgba(0, 0, 0, 0.5);
+			background: rgba(0, 0, 0, 0.8);
 			z-index: 1040;
 			display: none;
+			backdrop-filter: blur(4px);
 		}
 
 		.cart-overlay.show {
@@ -273,8 +406,8 @@
 		}
 
 		.cart-item {
-			border-bottom: 1px solid #e5e7eb;
-			padding: 1rem;
+			border-bottom: 1px solid var(--border-dark);
+			padding: 1.5rem;
 		}
 
 		.cart-item:last-child {
@@ -284,11 +417,12 @@
 		.cart-item-image {
 			width: 60px;
 			height: 60px;
-			background: linear-gradient(45deg, #f3f4f6, #e5e7eb);
-			border-radius: 8px;
+			background: var(--bg-dark);
+			border-radius: 12px;
 			display: flex;
 			align-items: center;
 			justify-content: center;
+			border: 1px solid var(--border-dark);
 		}
 
 		.quantity-controls {
@@ -298,34 +432,123 @@
 		}
 
 		.quantity-btn {
-			background: #f3f4f6;
-			border: none;
-			width: 30px;
-			height: 30px;
-			border-radius: 4px;
+			background: var(--bg-dark);
+			border: 1px solid var(--border-dark);
+			color: var(--text-white);
+			width: 32px;
+			height: 32px;
+			border-radius: 6px;
 			display: flex;
 			align-items: center;
 			justify-content: center;
 			cursor: pointer;
+			transition: all 0.2s ease;
 		}
 
 		.quantity-btn:hover {
-			background: #e5e7eb;
+			background: var(--primary-button);
+			color: white;
+			border-color: var(--primary-button);
 		}
 
 		.quantity-input {
 			width: 50px;
 			text-align: center;
-			border: 1px solid #d1d5db;
-			border-radius: 4px;
+			border: 1px solid var(--border-dark);
+			border-radius: 6px;
 			padding: 0.25rem;
+			background: var(--bg-dark);
+			color: var(--text-white);
 		}
 
+		/* Responsive */
 		@@media (max-width: 768px) {
+			.hero-section h1 {
+				font-size: 2.5rem !important;
+			}
+
+			h1 {
+				font-size: 2.5rem;
+			}
+
+			h2 {
+				font-size: 2rem;
+			}
+
 			.cart-sidebar {
 				width: 100%;
 				right: -100%;
 			}
+		}
+
+		/* Pagination - Dark theme */
+		.pagination .page-link {
+			color: var(--text-white);
+			border: 1px solid var(--border-dark);
+			background: var(--card-dark);
+			margin: 0 2px;
+			border-radius: 8px;
+			padding: 0.5rem 0.75rem;
+			transition: all 0.2s ease;
+		}
+
+		.pagination .page-link:hover {
+			background: var(--primary-button);
+			color: white;
+			border-color: var(--primary-button);
+		}
+
+		.pagination .page-item.active .page-link {
+			background: var(--primary-button);
+			border-color: var(--primary-button);
+			color: white !important;
+		}
+
+		/* Filter section - Dark theme */
+		.filter-section {
+			background: var(--card-dark);
+			border-radius: 16px;
+			padding: 2rem;
+			border: 1px solid var(--border-dark);
+			margin-bottom: 2rem;
+		}
+
+		.filter-section .form-control,
+		.filter-section .form-select {
+			background: var(--bg-dark);
+			border: 1px solid var(--border-dark);
+			color: var(--text-white);
+		}
+
+		.filter-section .form-control:focus,
+		.filter-section .form-select:focus {
+			background: var(--bg-dark);
+			border-color: var(--primary-button);
+			color: var(--text-white);
+			box-shadow: 0 0 0 0.2rem rgba(239, 94, 89, 0.25);
+		}
+
+		.filter-section .form-label {
+			color: var(--text-white);
+			font-weight: 500;
+		}
+
+		/* Custom scrollbar for dark theme */
+		::-webkit-scrollbar {
+			width: 8px;
+		}
+
+		::-webkit-scrollbar-track {
+			background: var(--bg-dark);
+		}
+
+		::-webkit-scrollbar-thumb {
+			background: var(--border-dark);
+			border-radius: 4px;
+		}
+
+		::-webkit-scrollbar-thumb:hover {
+			background: var(--primary-button);
 		}
 	</style>
 </head>
@@ -334,7 +557,9 @@
 	<!-- Navigation -->
 	<nav class="navbar navbar-expand-lg fixed-top">
 		<div class="container">
-			<a class="navbar-brand" href="/">ContentBloom</a>
+			<a class="navbar-brand" href="/">
+				<img src="/media/2i5oyv01/dark_stacked_cropped.png" alt="ContentBloom Logo">
+			</a>
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
 				<span class="navbar-toggler-icon"></span>
 			</button>
@@ -347,7 +572,7 @@
 						<a class="nav-link" href="/products">Products</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#about">About</a>
+						<a class="nav-link" href="/">Who We Are</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="#contact">Contact</a>
@@ -358,19 +583,21 @@
 							<span class="cart-badge" id="cartBadge" style="display: none;">0</span>
 						</a>
 					</li>
+					<li class="nav-item">
+						<a class="btn btn-primary" href="#contact">Say Hello</a>
+					</li>
 				</ul>
 			</div>
 		</div>
-	</nav>
 	</nav>
 
 	<!-- Cart Sidebar and Overlay -->
 	<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
 	<div class="cart-sidebar" id="cartSidebar">
-		<div class="p-4 border-bottom">
+		<div class="p-4 border-bottom" style="border-color: var(--border-dark) !important;">
 			<div class="d-flex justify-content-between align-items-center">
-				<h5 class="mb-0">Shopping Cart</h5>
-				<button class="btn-close" onclick="closeCart()"></button>
+				<h5 class="mb-0" style="color: var(--text-white);">Shopping Cart</h5>
+				<button class="btn-close btn-close-white" onclick="closeCart()"></button>
 			</div>
 		</div>
 
@@ -378,14 +605,14 @@
 			<!-- Cart items will be inserted here -->
 		</div>
 
-		<div class="p-4 border-top bg-light">
+		<div class="p-4 border-top" style="border-color: var(--border-dark) !important; background: var(--bg-darker);">
 			<div class="d-flex justify-content-between align-items-center mb-3">
-				<strong>Total: <span id="cartTotal">$0.00</span></strong>
+				<strong style="color: var(--text-white);">Total: <span id="cartTotal">$0.00</span></strong>
 			</div>
 			<button class="btn btn-primary w-100 mb-2" onclick="proceedToCheckout()">
 				Proceed to Checkout
 			</button>
-			<button class="btn btn-outline-secondary w-100" onclick="clearCart()">
+			<button class="btn btn-outline-light w-100" onclick="clearCart()">
 				Clear Cart
 			</button>
 		</div>
@@ -401,46 +628,50 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-4 col-md-6 mb-4">
-					<h5>ContentBloom</h5>
-					<p class="text-muted">Building amazing digital experiences with Umbraco CMS. Your trusted partner
-						for content management solutions.</p>
+					<div class="d-flex align-items-center gap-2 mb-3">
+						<img src="/media/2i5oyv01/dark_stacked_cropped.png" alt="ContentBloom Logo" width="135" height="40.08">
+					</div>
+					<p class="text-muted">Transform your digital experience with powerful content management solutions. Discover our innovative approach to web development and digital strategy.</p>
 				</div>
 				<div class="col-lg-2 col-md-6 mb-4">
-					<h5>Quick Links</h5>
+					<h5>About Us</h5>
 					<ul class="list-unstyled">
-						<li><a href="/">Home</a></li>
-						<li><a href="/products">Products</a></li>
-						<li><a href="#about">About</a></li>
+						<li><a href="/">Who We Are</a></li>
+						<li><a href="/products">What We Do</a></li>
+						<li><a href="#careers">Careers</a></li>
 						<li><a href="#contact">Contact</a></li>
 					</ul>
 				</div>
 				<div class="col-lg-2 col-md-6 mb-4">
-					<h5>Categories</h5>
+					<h5>Products</h5>
 					<ul class="list-unstyled">
 						<li><a href="/products?category=Electronics">Electronics</a></li>
 						<li><a href="/products?category=Clothing">Clothing</a></li>
 						<li><a href="/products?category=Books">Books</a></li>
 						<li><a href="/products?category=Home">Home</a></li>
+						<li><a href="/products?category=Toys">Toys</a></li>
+						<li><a href="/products">All Products</a></li>
 					</ul>
 				</div>
 				<div class="col-lg-4 col-md-6 mb-4">
-					<h5>Connect With Us</h5>
-					<div class="d-flex gap-3 mb-3">
-						<a href="#" class="fs-4"><i class="fab fa-facebook"></i></a>
-						<a href="#" class="fs-4"><i class="fab fa-twitter"></i></a>
-						<a href="#" class="fs-4"><i class="fab fa-linkedin"></i></a>
-						<a href="#" class="fs-4"><i class="fab fa-instagram"></i></a>
+					<h5>Contact Us</h5>
+					<p class="text-muted mb-2">Business Inquiries</p>
+					<p class="text-muted">sales@contentbloom.com</p>
+					<div class="d-flex gap-3 mt-3">
+						<a href="#" class="text-decoration-none"><i class="fab fa-linkedin"></i></a>
+						<a href="#" class="text-decoration-none"><i class="fab fa-twitter"></i></a>
+						<a href="#" class="text-decoration-none"><i class="fab fa-instagram"></i></a>
+						<a href="#" class="text-decoration-none"><i class="fab fa-facebook"></i></a>
 					</div>
-					<p class="text-muted">Stay updated with our latest products and offers.</p>
 				</div>
 			</div>
-			<hr class="my-4" style="border-color: #374151;">
+			<hr style="border-color: var(--border-dark);">
 			<div class="row">
 				<div class="col-md-6">
-					<p class="text-muted mb-0">&copy; 2025 ContentBloom MVP. All rights reserved.</p>
+					<p class="text-muted mb-0">&copy; Your Company, 2025. All rights reserved.</p>
 				</div>
 				<div class="col-md-6 text-md-end">
-					<p class="text-muted mb-0">Built with Umbraco CMS</p>
+					<p class="text-muted mb-0">Built with Modern Technology</p>
 				</div>
 			</div>
 		</div>
@@ -448,7 +679,7 @@
 
 	<!-- Bootstrap JS -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-	<!-- Cart JavaScript -->
+	<!-- Cart JavaScript (same as before but with dark theme styling) -->
 	<script>
 		class ShoppingCart {
 			constructor() {
@@ -456,13 +687,11 @@
 				this.updateCartUI();
 			}
 
-			// Save cart to cookies
 			saveCart() {
 				const cartData = JSON.stringify(this.items);
-				document.cookie = `cart=${encodeURIComponent(cartData)}; path=/; max-age=${30 * 24 * 60 * 60}`; // 30 days
+				document.cookie = `cart=${encodeURIComponent(cartData)}; path=/; max-age=${30 * 24 * 60 * 60}`;
 			}
 
-			// Load cart from cookies
 			loadCart() {
 				const cookies = document.cookie.split(';');
 				for (let cookie of cookies) {
@@ -478,7 +707,6 @@
 				return [];
 			}
 
-			// Add item to cart
 			addItem(product) {
 				const existingItem = this.items.find(item => item.id === product.id);
 
@@ -500,14 +728,12 @@
 				this.showAddedNotification(product.title);
 			}
 
-			// Remove item from cart
 			removeItem(productId) {
 				this.items = this.items.filter(item => item.id !== productId);
 				this.saveCart();
 				this.updateCartUI();
 			}
 
-			// Update item quantity
 			updateQuantity(productId, quantity) {
 				const item = this.items.find(item => item.id === productId);
 				if (item) {
@@ -521,30 +747,25 @@
 				}
 			}
 
-			// Clear entire cart
 			clear() {
 				this.items = [];
 				this.saveCart();
 				this.updateCartUI();
 			}
 
-			// Get cart total
 			getTotal() {
 				return this.items.reduce((total, item) => total + (item.price * item.quantity), 0);
 			}
 
-			// Get cart item count
 			getItemCount() {
 				return this.items.reduce((count, item) => count + item.quantity, 0);
 			}
 
-			// Update cart UI
 			updateCartUI() {
 				this.updateCartBadge();
 				this.updateCartSidebar();
 			}
 
-			// Update cart badge
 			updateCartBadge() {
 				const badge = document.getElementById('cartBadge');
 				const count = this.getItemCount();
@@ -557,83 +778,78 @@
 				}
 			}
 
-			// Update cart sidebar
 			updateCartSidebar() {
 				const cartItemsContainer = document.getElementById('cartItems');
 				const cartTotal = document.getElementById('cartTotal');
 
 				if (this.items.length === 0) {
 					cartItemsContainer.innerHTML = `
-	                <div class="p-4 text-center">
-	                    <i class="fas fa-shopping-cart text-muted" style="font-size: 3rem;"></i>
-	                    <p class="text-muted mt-3">Your cart is empty</p>
-	                    <a href="/products" class="btn btn-primary">Start Shopping</a>
-	                </div>
-	            `;
+						<div class="p-4 text-center">
+							<i class="fas fa-shopping-cart" style="font-size: 3rem; color: var(--text-gray);"></i>
+							<p style="color: var(--text-gray); margin-top: 1rem;">Your cart is empty</p>
+							<a href="/products" class="btn btn-primary">Start Shopping</a>
+						</div>
+					`;
 				} else {
 					cartItemsContainer.innerHTML = this.items.map(item => `
-	                <div class="cart-item">
-	                    <div class="d-flex gap-3">
-	                        <div class="cart-item-image">
-	                            <i class="fas fa-${this.getCategoryIcon(item.category)} text-primary"></i>
-	                        </div>
-	                        <div class="flex-grow-1">
-	                            <h6 class="mb-1">${item.title}</h6>
-	                            <p class="text-muted small mb-2">${item.category}</p>
-	                            <div class="d-flex justify-content-between align-items-center">
-	                                <div class="quantity-controls">
-	                                    <button class="quantity-btn" onclick="cart.updateQuantity('${item.id}', ${item.quantity - 1})">
-	                                        <i class="fas fa-minus"></i>
-	                                    </button>
-	                                    <input type="number" class="quantity-input" value="${item.quantity}" 
-	                                           onchange="cart.updateQuantity('${item.id}', parseInt(this.value))" min="1">
-	                                    <button class="quantity-btn" onclick="cart.updateQuantity('${item.id}', ${item.quantity + 1})">
-	                                        <i class="fas fa-plus"></i>
-	                                    </button>
-	                                </div>
-	                                <div class="text-end">
-	                                    <div class="fw-bold">$${(item.price * item.quantity).toFixed(2)}</div>
-	                                    <button class="btn btn-sm text-danger" onclick="cart.removeItem('${item.id}')">
-	                                        <i class="fas fa-trash"></i>
-	                                    </button>
-	                                </div>
-	                            </div>
-	                        </div>
-	                    </div>
-	                </div>
-	            `).join('');
+						<div class="cart-item">
+							<div class="d-flex gap-3">
+								<div class="cart-item-image">
+									<i class="fas fa-${this.getCategoryIcon(item.category)}" style="color: var(--primary-button);"></i>
+								</div>
+								<div class="flex-grow-1">
+									<h6 class="mb-1" style="color: var(--text-white);">${item.title}</h6>
+									<p style="color: var(--text-gray); font-size: 0.875rem; margin-bottom: 0.5rem;">${item.category}</p>
+									<div class="d-flex justify-content-between align-items-center">
+										<div class="quantity-controls">
+											<button class="quantity-btn" onclick="cart.updateQuantity('${item.id}', ${item.quantity - 1})">
+												<i class="fas fa-minus"></i>
+											</button>
+											<input type="number" class="quantity-input" value="${item.quantity}" 
+												   onchange="cart.updateQuantity('${item.id}', parseInt(this.value))" min="1">
+											<button class="quantity-btn" onclick="cart.updateQuantity('${item.id}', ${item.quantity + 1})">
+												<i class="fas fa-plus"></i>
+											</button>
+										</div>
+										<div class="text-end">
+											<div class="fw-bold" style="color: var(--primary-button);">${(item.price * item.quantity).toFixed(2)}</div>
+											<button class="btn btn-sm" style="color: #dc3545;" onclick="cart.removeItem('${item.id}')">
+												<i class="fas fa-trash"></i>
+											</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					`).join('');
 				}
 
-				cartTotal.textContent = `$${this.getTotal().toFixed(2)}`;
+				cartTotal.textContent = `${this.getTotal().toFixed(2)}`;
 			}
 
-			// Get category icon
 			getCategoryIcon(category) {
 				const icons = {
-					'electronics': 'laptop',
+					'electronics': 'microchip',
 					'clothing': 'tshirt',
-					'books': 'book',
+					'books': 'book-open',
 					'home': 'home',
 					'toys': 'gamepad',
 					'sports': 'futbol'
 				};
-				return icons[category?.toLowerCase()] || 'box';
+				return icons[category?.toLowerCase()] || 'cube';
 			}
 
-			// Show added notification
 			showAddedNotification(productTitle) {
-				// Simple notification
 				const notification = document.createElement('div');
 				notification.innerHTML = `
-	            <div class="alert alert-success alert-dismissible fade show position-fixed" 
-	                 style="top: 100px; right: 20px; z-index: 9999; min-width: 300px;">
-	                <strong>Added to cart!</strong> ${productTitle}
-	                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-	            </div>
-	        `;
+					<div class="alert alert-success alert-dismissible fade show position-fixed" 
+						 style="top: 100px; right: 20px; z-index: 9999; min-width: 300px; background: var(--primary-button); border: none; color: white;">
+						<strong>Added to cart!</strong> ${productTitle}
+						<button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"></button>
+					</div>
+				`;
 				document.body.appendChild(notification);
 
-				// Auto remove after 3 seconds
 				setTimeout(() => {
 					notification.remove();
 				}, 3000);
@@ -666,11 +882,9 @@
 				return;
 			}
 
-			// For now, just show an alert. You can implement actual checkout later
-			alert(`Proceeding to checkout with ${cart.getItemCount()} items totaling $${cart.getTotal().toFixed(2)}`);
+			alert(`Proceeding to checkout with ${cart.getItemCount()} items totaling ${cart.getTotal().toFixed(2)}`);
 		}
 
-		// Add to cart function for product pages
 		function addToCart(productData) {
 			cart.addItem(productData);
 		}
