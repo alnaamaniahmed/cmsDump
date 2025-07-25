@@ -1,14 +1,11 @@
 services:
   - type: web
     name: contentbloom-umbraco
-    env: dotnet
-    buildCommand: dotnet publish --configuration Release --output ./publish
-    startCommand: dotnet ./publish/MyProject.dll
+    env: docker
+    dockerfilePath: ./Dockerfile
     envVars:
       - key: ASPNETCORE_ENVIRONMENT
         value: Production
-      - key: ASPNETCORE_URLS
-        value: http://0.0.0.0:$PORT
       - key: DATABASE_HOST
         fromDatabase:
           name: contentbloom-db
