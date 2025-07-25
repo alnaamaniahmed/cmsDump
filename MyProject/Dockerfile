@@ -1,12 +1,13 @@
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /src
 
-# Copy everything first
-COPY . .
+# Copy project file - note the path from repo root perspective
+COPY ["MyProject/MyProject.csproj", "./"]
+RUN dotnet restore "MyProject.csproj"
 
-# Restore and build
-RUN dotnet restore
-RUN dotnet publish -c Release -o /app/publish /p:UseAppHost=false
+# Copy everything from MyProject folder
+COPY MyProject/ .
+RUN dotnet publish "MyProject.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS runtime
 WORKDIR /app
